@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" prefHeight="35.0" prefWidth="606.0" text="THÔNG TIN USER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Mã độc giả" />
+            <Label />
+            <TextField disable="true" prefHeight="26.0" prefWidth="190.0" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="45.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Họ tên" />
+            <Label />
+            <TextField disable="true" prefHeight="26.0" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="80.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Giới tính" />
+            <Label />
+            <TextField disable="true" prefHeight="26.0" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="116.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Ngày sinh" />
+            <Label />
+            <TextField disable="true" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="151.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Đối tượng" />
+            <Label />
+            <TextField disable="true" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="186.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Bộ phận" />
+            <Label />
+            <TextField disable="true" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="221.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Hạn thẻ" />
+            <Label />
+            <TextField disable="true" prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="256.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Email" />
+            <Label />
+            <TextField prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="292.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Địa chỉ" />
+            <Label />
+            <TextField prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="327.0" prefHeight="35.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="85.0" text="Số điện thoai" />
+            <Label />
+            <TextField prefWidth="190.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Lưu thông tin" textAlignment="CENTER" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
