@@ -17,6 +17,12 @@ public class BoPhan {
     {
         this.tenBP=tenBP;
     }
+
+    @Override
+    public String toString() {
+        return this.tenBP; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
     /**
      * @return the maBP
      */

@@ -17,6 +17,13 @@ public class DoiTuong {
     {
         this.loaiDT=loaiDT;
     }
+
+    @Override
+    public String toString() {
+        return this.loaiDT; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
     /**
      * @return the maDT
      */

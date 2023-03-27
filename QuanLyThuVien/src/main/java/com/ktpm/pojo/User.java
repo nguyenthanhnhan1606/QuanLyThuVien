@@ -4,7 +4,11 @@
  */
 package com.ktpm.pojo;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 /**
  *
@@ -26,17 +30,21 @@ public class User {
     private int user_doituong;
     private int user_role;
     
+    public User() throws ParseException {
+        this.hanthe = new SimpleDateFormat("yyyy-MM-dd").parse(localDate().toString());
+    }
 
-    public User(String username, String password, String ten, String gioitinh, Date ngaysinh, Date hanthe, String email, String diachi,
+   
+    public User(String username, String password, String ten, String gioitinh, Date ngaysinh, String email, String diachi,
             String sdt, int user_bophan, int user_doituong) 
     {
-        
+        Date d= new Date(2002,02,11);
         this.username=username;
         this.password=password;
         this.ten=ten;
         this.gioitinh=gioitinh;
         this.ngaysinh=ngaysinh;
-        this.hanthe=hanthe;
+        this.hanthe= d;
         this.email=email;
         this.diachi=diachi;
         this.sdt=sdt;
