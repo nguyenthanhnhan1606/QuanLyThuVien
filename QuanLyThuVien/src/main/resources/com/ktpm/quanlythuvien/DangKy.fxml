@@ -106,7 +106,7 @@
       <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="344.0" prefHeight="24.0" prefWidth="600.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#addUsers" text="Đăng ký" />
-            <Button mnemonicParsing="false" text="Thoát" />
+            <Button mnemonicParsing="false" onAction="#thoat" text="Trở về" />
          </children>
          <padding>
             <Insets top="25.0" />
