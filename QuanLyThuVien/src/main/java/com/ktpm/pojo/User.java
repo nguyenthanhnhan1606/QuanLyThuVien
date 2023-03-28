@@ -5,11 +5,11 @@
 package com.ktpm.pojo;
 
 
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import static java.time.temporal.TemporalQueries.localDate;
-import java.util.Date;
+import java.sql.Date;
+
 /**
  *
  * @author THANH NHAN
@@ -30,21 +30,21 @@ public class User {
     private int user_doituong;
     private int user_role;
     
-    public User() throws ParseException {
-        this.hanthe = new SimpleDateFormat("yyyy-MM-dd").parse(localDate().toString());
-    }
-
-   
+    long date=System.currentTimeMillis();
+    
     public User(String username, String password, String ten, String gioitinh, Date ngaysinh, String email, String diachi,
-            String sdt, int user_bophan, int user_doituong) 
+            String sdt, int user_bophan, int user_doituong) throws NoSuchAlgorithmException 
     {
-        Date d= new Date(2002,02,11);
+        Date t= new Date(date);
+        int m = t.getYear();
+        t.setYear(m+4);
+        
         this.username=username;
         this.password=password;
         this.ten=ten;
         this.gioitinh=gioitinh;
         this.ngaysinh=ngaysinh;
-        this.hanthe= d;
+        this.hanthe=t;
         this.email=email;
         this.diachi=diachi;
         this.sdt=sdt;
@@ -235,5 +235,6 @@ public class User {
     public void setUser_role(int user_role) {
         this.user_role = user_role;
     }
+
 
 }

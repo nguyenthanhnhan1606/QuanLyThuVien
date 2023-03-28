@@ -25,7 +25,7 @@ public class BoPhanService {
             ResultSet rs = stm.executeQuery("SELECT * FROM bophan");
             
             while (rs.next()){
-                BoPhan bp = new BoPhan(rs.getString("tenBP"));
+                BoPhan bp = new BoPhan(rs.getInt("maBP"),rs.getString("tenBP"));
                 results.add(bp);
             }
             

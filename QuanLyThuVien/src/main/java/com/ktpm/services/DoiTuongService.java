@@ -26,7 +26,7 @@ public class DoiTuongService {
             ResultSet rs = stm.executeQuery("SELECT * FROM doituong");
             
             while (rs.next()){
-                DoiTuong bp = new DoiTuong(rs.getString("loaiDT"));
+                DoiTuong bp = new DoiTuong(rs.getInt("maDT"),rs.getString("loaiDT"));
                 results.add(bp);
             }
             

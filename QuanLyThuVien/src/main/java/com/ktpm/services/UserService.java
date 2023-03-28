@@ -22,20 +22,20 @@ public class UserService {
         try ( Connection conn = JdbcUtils.getConn()) {
             conn.setAutoCommit(false);
             String sql = "INSERT INTO user(username,password, ten, gioitinh, ngaysinh, hanthe,diachi,email,sdt,user_bophan,user_doituong,user_role) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // SQL injection
-            PreparedStatement stm = conn.prepareCall(sql);
+            PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, u.getUsername());
             stm.setString(2, u.getPassword());
             stm.setString(3,u.getTen());
             stm.setString(4,u.getGioitinh());
-            stm.setDate(5, (Date) u.getNgaysinh());
-            stm.setDate(6, (Date) u.getHanthe());
+            stm.setDate(5,  u.getNgaysinh());
+            stm.setDate(6,  u.getHanthe());  
             stm.setString(7,u.getDiachi());
             stm.setString(8,u.getEmail());
             stm.setString(9,u.getSdt());
             stm.setInt(10,u.getUser_bophan());
             stm.setInt(11,u.getUser_doituong());
             stm.setInt(12,u.getUser_role());
-            stm.executeUpdate();
+            stm.execute();
             try {
                 conn.commit();
                 return true;

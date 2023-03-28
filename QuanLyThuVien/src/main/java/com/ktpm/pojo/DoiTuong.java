@@ -13,8 +13,9 @@ public class DoiTuong {
     private String loaiDT;
 
     
-    public DoiTuong(String loaiDT)
+    public DoiTuong(int maDT,String loaiDT)
     {
+        this.maDT=maDT;
         this.loaiDT=loaiDT;
     }
 

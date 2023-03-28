@@ -13,8 +13,9 @@ public class BoPhan {
     private String tenBP;
 
     
-    public BoPhan(String tenBP)
+    public BoPhan(int maBP,String tenBP)
     {
+        this.maBP=maBP;
         this.tenBP=tenBP;
     }
 

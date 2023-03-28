@@ -13,8 +13,9 @@ import com.ktpm.services.UserService;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,7 +63,7 @@ public class DangKyController implements Initializable {
     @FXML
     private RadioButton rd2;
     ToggleGroup group1;
-    Date d= new java.sql.Date(2002, 2, 11);
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         group1 = new ToggleGroup();
@@ -92,15 +93,16 @@ public class DangKyController implements Initializable {
         }
     }
 
-    public void addUsers(ActionEvent evt) throws SQLException, IOException {
-        
+    public void addUsers(ActionEvent evt) throws SQLException, IOException, NoSuchAlgorithmException {
+         
+        Date date = Date.valueOf(this.ngaysinh.getValue());
         if (this.password.getText().equals(this.cfpassword.getText())) {
-            User u = new User(this.username.getText(), this.password.getText(), this.name.getText(),"nam",d, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
+            User u = new User(this.username.getText(), this.password.getText(), this.name.getText(),"nam",date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
             UserService user = new UserService();
             try {
                 if (user.addUser(u)) {
-                    App.setRoot("DangNhap");
                     MessageBox.getBox("Question", "Add question successful", Alert.AlertType.INFORMATION).show();
+                    App.setRoot("DangNhap");
                 }
             } catch (SQLException ex) {
                 MessageBox.getBox("Question", "Add question failed", Alert.AlertType.ERROR).show();
