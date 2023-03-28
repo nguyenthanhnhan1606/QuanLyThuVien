@@ -20,21 +20,10 @@ public class MessageBox {
  *
  * @author admin
  */
-    public static Alert getBox(String title, String content, Alert.AlertType type) {
+    public static Alert getBox(String title, String header, Alert.AlertType type) {
         Alert a = new Alert(type);
         a.setTitle(title);
-        a.setContentText(content);
-        return a;
-    }
-     public static Alert getBox1(String title, String content, Alert.AlertType type) {
-        Alert a = new Alert(type);
-        a.setTitle(title);
-        a.setContentText(content);
-        ButtonType bty= new ButtonType("YES",ButtonBar.ButtonData.YES);
-        ButtonType btn= new ButtonType("No",ButtonBar.ButtonData.NO);
-        ButtonType btc= new ButtonType("CANCEL",ButtonBar.ButtonData.CANCEL_CLOSE);
-        a.getButtonTypes().setAll(bty,btn,btc);
-        
+        a.setHeaderText(header);
         return a;
     }
 }

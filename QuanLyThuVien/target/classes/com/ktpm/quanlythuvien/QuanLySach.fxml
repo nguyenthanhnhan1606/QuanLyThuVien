@@ -3,15 +3,15 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="1055.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="1055.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.QuanLySachController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="1058.0" text="QUẢN LÝ SÁCH" textAlignment="CENTER">
          <font>
@@ -21,17 +21,7 @@
             <Insets bottom="25.0" />
          </VBox.margin>
       </Label>
-      <TableView prefHeight="220.0" prefWidth="1100.0">
-        <columns>
-          <TableColumn prefWidth="96.79998779296875" text="Mã tài liệu" />
-          <TableColumn prefWidth="110.39996337890625" text="Mã số" />
-            <TableColumn prefWidth="160.00006103515625" text="Tên tài liệu" />
-            <TableColumn prefWidth="183.20001220703125" text="Chủ đề" />
-            <TableColumn prefWidth="170.39996337890625" text="Tác giả" />
-            <TableColumn prefWidth="90.39996337890625" text="Năm xuất bản" />
-            <TableColumn prefWidth="119.2000732421875" text="Giá" />
-            <TableColumn prefWidth="119.2000732421875" text="Thể loại" />
-        </columns>
+      <TableView fx:id="tbSach" prefHeight="220.0" prefWidth="1100.0">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -45,8 +35,8 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="10.0" prefWidth="528.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Mã tài liệu" />
-                        <ComboBox prefWidth="205.0" />
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Mã sách" />
+                        <TextField prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -54,8 +44,8 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="6.0" prefWidth="528.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Tên tài liệu" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Tên sách" />
+                        <TextField fx:id="tenSach" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -67,7 +57,7 @@
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="10.0" prefWidth="528.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="85.0" text="Tác giả" />
-                        <ComboBox prefWidth="205.0" />
+                        <TextField fx:id="tacGia" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -76,7 +66,7 @@
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="6.0" prefWidth="528.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="85.0" text="Năm xuất bản" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
+                        <DatePicker fx:id="namXB" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -86,10 +76,6 @@
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="8.0" prefWidth="528.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Giá bán" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
-                     </children>
                      <padding>
                         <Insets top="5.0" />
                      </padding>
@@ -106,8 +92,8 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="10.0" prefWidth="528.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Mã số" />
-                        <ComboBox prefWidth="205.0" />
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Mô tả" />
+                        <TextField fx:id="moTa" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -115,8 +101,8 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="6.0" prefWidth="528.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Chủ đề" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Vị trí" />
+                        <TextField fx:id="viTri" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -128,17 +114,13 @@
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="10.0" prefWidth="528.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="85.0" text="Thể loại" />
-                        <ComboBox prefWidth="205.0" />
+                        <ComboBox fx:id="cbTheLoaiSach" prefWidth="205.0" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="8.0" prefWidth="528.0">
-                     <children>
-                        <Label prefHeight="18.0" prefWidth="85.0" text="Ngày nhập" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
-                     </children>
                      <padding>
                         <Insets top="5.0" />
                      </padding>
