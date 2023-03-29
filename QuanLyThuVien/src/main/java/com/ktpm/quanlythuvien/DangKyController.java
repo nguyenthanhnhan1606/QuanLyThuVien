@@ -107,37 +107,52 @@ public class DangKyController implements Initializable {
 
         Date date = Date.valueOf(this.ngaysinh.getValue());
         UserService user = new UserService();
-        if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()
-                || this.username.getText().isEmpty() && this.password.getText().isEmpty() && this.cfpassword.getText().isEmpty() && this.email.getText().isEmpty()) {
+        if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()) {
             MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
         } else {
-            if (this.password.getText() != this.cfpassword.getText()) {
-                MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
-            } else {
-                User u = new User(this.username.getText(), this.password.getText(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
-                try {
-                    if (user.addUser(u)) {
-                        MessageBox.getBox("Thông báo", "Bạn đã đăng ký tài khoản thành công!!!", Alert.AlertType.INFORMATION).show();
-                        App.setRoot("DangNhap");
-                    } else {
-                        MessageBox.getBox("Thông báo", "Username đã tồn tại!!", Alert.AlertType.INFORMATION).show();
-                    }
-                } catch (SQLException ex) {
-                    MessageBox.getBox("Thông báo", "Đăng ký tài khoản thất bại!!!", Alert.AlertType.ERROR).show();
-                    Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+            if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) 
+            {
+                if(6<=this.password.getText().length() && this.password.getText().length() <=45 )
+                {
+                    User u = new User(this.username.getText().trim(), this.password.getText().trim(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
+                    try {
+                        if (user.addUser(u)) {
+                            MessageBox.getBox("Thông báo", "Bạn đã đăng ký tài khoản thành công!!!", Alert.AlertType.INFORMATION).show();
+                            App.setRoot("DangNhap");
+                        } else {
+                            MessageBox.getBox("Thông báo", "Username đã tồn tại!!", Alert.AlertType.INFORMATION).show();
+                        }
+                    } catch (SQLException ex) {
+                        MessageBox.getBox("Thông báo", "Đăng ký tài khoản thất bại!!!", Alert.AlertType.ERROR).show();
+                        Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
                 }
+                else
+                {
+                    MessageBox.getBox("Thông báo", "Mật khẩu không được ít hơn 6 kí tự và nhiều hơn 45", Alert.AlertType.INFORMATION).show();
+                }
+            } else {
+                MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
             }
 
         }
     }
 
     public void thoat(ActionEvent evt) throws IOException {
-        Optional<ButtonType> result = MessageBox.getBox("Question", "Add question failed", Alert.AlertType.INFORMATION).showAndWait();
-        if (result.get() == ButtonType.YES) {
-            App.setRoot("DangNhap");
-        } else {
-
-        }
+        Alert a = MessageBox.getBox("Thông báo", 
+                        "Bạn có muốn quay lại đăng nhập không?", 
+                        Alert.AlertType.CONFIRMATION);
+                a.showAndWait().ifPresent(res -> {
+                    if (res == ButtonType.OK)
+                    {
+                        try {
+                            App.setRoot("DangNhap");
+                        } catch (IOException ex) {
+                            Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+           });
+                        
     }
 
     public void clearForm() {

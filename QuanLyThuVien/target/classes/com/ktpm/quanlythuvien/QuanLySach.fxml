@@ -36,7 +36,7 @@
                   <HBox alignment="CENTER" prefHeight="10.0" prefWidth="528.0">
                      <children>
                         <Label prefHeight="18.0" prefWidth="85.0" text="Mã sách" />
-                        <TextField prefHeight="26.0" prefWidth="205.0" />
+                        <TextField fx:id="maSach" prefHeight="26.0" prefWidth="205.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -128,6 +128,15 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="6.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Ngày nhập" />
+                        <DatePicker fx:id="ngayNhap" prefHeight="26.0" prefWidth="205.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
                <HBox.margin>
                   <Insets top="25.0" />
@@ -139,9 +148,9 @@
          <children>
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="515.0" layoutY="35.0" mnemonicParsing="false" text="Trước" textAlignment="RIGHT" />
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="515.0" layoutY="33.0" mnemonicParsing="false" text="Sau" textAlignment="RIGHT" />
-            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="543.0" layoutY="33.0" mnemonicParsing="false" text="Xóa" textAlignment="RIGHT" />
+            <Button fx:id="delete" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="543.0" layoutY="33.0" mnemonicParsing="false" onAction="#deleteSachs" text="Xóa" textAlignment="RIGHT" />
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="560.0" layoutY="33.0" mnemonicParsing="false" text="Hủy" textAlignment="RIGHT" />
-            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="579.0" layoutY="33.0" mnemonicParsing="false" text="Thêm" textAlignment="RIGHT" />
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="579.0" layoutY="33.0" mnemonicParsing="false" onAction="#addSachs" text="Thêm" textAlignment="RIGHT" />
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="593.0" layoutY="33.0" mnemonicParsing="false" text="Lưu" textAlignment="RIGHT" />
             <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="621.0" layoutY="33.0" mnemonicParsing="false" text="Thoát" textAlignment="RIGHT" />
          </children>

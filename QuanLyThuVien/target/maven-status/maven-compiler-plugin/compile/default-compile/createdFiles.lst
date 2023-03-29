@@ -10,7 +10,6 @@ com\ktpm\quanlythuvien\TimKiemController.class
 module-info.class
 com\ktpm\quanlythuvien\TaiLieuTacGiaController.class
 com\ktpm\pojo\DoiTuong.class
-com\ktpm\quanlythuvien\QuanLySachController.class
 com\ktpm\pojo\User.class
 com\ktpm\pojo\PhieuMuonSach.class
 com\ktpm\services\JdbcUtils.class

@@ -4,7 +4,6 @@
  */
 package com.ktpm.services;
 
-import com.ktpm.pojo.BoPhan;
 import com.ktpm.pojo.User;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -82,6 +81,7 @@ public class UserService {
         return results;
     }
 
+ 
     public boolean Check(User u) throws SQLException {
         UserService user = new UserService();
         List<User> users = user.getUser();
@@ -92,6 +92,18 @@ public class UserService {
 
         }
         return true;
+    }
+    
+    //ĐĂNG NHẬP
+    public boolean checkLogin(String username, String password) throws SQLException
+    {
+        UserService user = new UserService();
+        List<User> users = user.getUser();
+        for (User user1 : users) {
+            if(user1.getUsername().equals(username) && user1.getPassword().equals(password))
+                return true;
+        }
+        return false;
     }
 
 }

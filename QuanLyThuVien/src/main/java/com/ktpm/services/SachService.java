@@ -26,33 +26,47 @@ public class SachService {
             ResultSet rs = stm.executeQuery("SELECT * FROM sach");
             while(rs.next())
             {
-                Sach sa= new Sach(rs.getInt("maSach"),rs.getString("tenSach"),rs.getString("tenTacGia"),rs.getDate("namXB"),rs.getString("moTa"), rs.getString("viTri"),rs.getDate("ngayNhapSach"),rs.getInt("sach_tl"));
+                Sach sa= new Sach(rs.getString("tenSach"),rs.getString("tenTacGia"),rs.getDate("namXB"),rs.getString("moTa"), rs.getString("viTri"),rs.getDate("ngayNhapSach"),rs.getInt("sach_tl"));
                 s.add(sa);
             }  
         }
         return s;
     }
 
-//    public boolean addSach(Sach s) throws SQLException {
-//        try (Connection conn = JdbcUtils.getConn()) {
-//            conn.setAutoCommit(false);
-//            String sql = "INSERT INTO sach(tenSach, tenTacGia, namXB, moTa, viTri, ngayNhapSach, sach_tl) VALUES(?, ?, ?, ?, ?, ?)"; // SQL injection
-//            PreparedStatement stm = conn.prepareStatement(sql);
-//            stm.setString(1, s.getTenSach());
-//            stm.setString(2, s.getTenTacGia());
-//            stm.setDate(3, (java.sql.Date) s.getNamXB());
-//            stm.setString(4, s.getMoTa());
-//            stm.setString(5, s.getViTri());
-//            stm.setDate(6, (java.sql.Date) s.getNgayNhapSach());
-//            stm.setInt(7, s.getSach_tl());
-//            stm.execute();
-//            try {
-//                conn.commit();
-//                return true;
-//            } catch (SQLException ex) {
-//                System.err.println(ex.getMessage());
-//                return false;
-//            }
-//        }
-//    }
+    public boolean addSach(Sach s) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            conn.setAutoCommit(false);
+            String sql = "INSERT INTO sach(tenSach, tenTacGia, namXB, moTa, viTri, ngayNhapSach, sach_tl) VALUES(?, ?, ?, ?, ?, ?, ?)"; // SQL injection
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, s.getTenSach());
+            stm.setString(2, s.getTenTacGia());
+            stm.setDate(3, (java.sql.Date) s.getNamXB());
+            stm.setString(4, s.getMoTa());
+            stm.setString(5, s.getViTri());
+            stm.setDate(6, (java.sql.Date) s.getNgayNhapSach());
+            stm.setInt(7, s.getSach_tl());
+            stm.execute();
+            try {
+                conn.commit();
+                return true;
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
+        }
+    }
+    
+    public boolean deleteSach(int maSach) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "DELETE FROM sach WHERE id="+maSach;
+            Statement stm = conn.createStatement(); 
+            stm.executeUpdate(sql);
+            ResultSet rs = stm.executeQuery(sql);
+            if(rs == null)
+            {
+                return true;
+            } 
+        }
+        return false;
+    }
 }
