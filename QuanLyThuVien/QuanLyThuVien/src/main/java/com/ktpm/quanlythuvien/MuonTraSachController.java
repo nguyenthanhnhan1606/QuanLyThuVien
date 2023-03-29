@@ -8,6 +8,6 @@ package com.ktpm.quanlythuvien;
  *
  * @author Admin
  */
-public class QuanLySachController {
+public class MuonTraSachController {
     
 }

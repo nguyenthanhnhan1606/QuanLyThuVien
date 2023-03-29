@@ -1,4 +1,4 @@
-module com.nguyenhoangvu.quanlythuvien {
+module com.ktpm.quanlythuvien {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

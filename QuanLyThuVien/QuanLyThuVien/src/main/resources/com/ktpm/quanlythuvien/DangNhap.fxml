@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.PrimaryController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.DangNhapController">
    <children>
       <Label alignment="TOP_CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="600.0" text="CHƯƠNG TRÌNH QUẢN LÝ THƯ VIỆN" textAlignment="CENTER">
          <font>
@@ -20,18 +20,18 @@
             <VBox prefHeight="46.0" prefWidth="516.0" style="-fx-padding: 20px;">
                <children>
                   <Label text="Username" />
-                  <TextField fx:id="tf" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="370.0" />
+                  <TextField fx:id="username" alignment="TOP_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="370.0" />
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="46.0" prefWidth="516.0" style="-fx-padding: 20px;">
                <children>
                   <Label text="Password" />
-                  <TextField prefHeight="26.0" prefWidth="489.0" />
+                  <TextField fx:id="password" prefHeight="26.0" prefWidth="489.0" />
                </children>
             </VBox>
             <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="43.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Đăng ký" />
+                  <Button mnemonicParsing="false" onAction="#dangKy" text="Đăng ký" />
                   <Button mnemonicParsing="false" text="Quên mật khẩu" />
                </children>
                <padding>
@@ -40,8 +40,8 @@
             </HBox>
             <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="103.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="43.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Thoát" />
-                  <Button mnemonicParsing="false" onAction="#switchToSecondary" text="Đăng nhập" />
+                  <Button mnemonicParsing="false" onAction="#exit" text="Thoát" />
+                  <Button mnemonicParsing="false" onAction="#login" text="Đăng nhập" />
                </children>
                <padding>
                   <Insets left="20.0" top="10.0" />

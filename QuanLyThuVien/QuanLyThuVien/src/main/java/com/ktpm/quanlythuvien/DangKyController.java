@@ -16,6 +16,8 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,7 +27,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import static javafx.scene.control.ButtonType.OK;
 import static javafx.scene.control.ButtonType.YES;
@@ -75,6 +76,9 @@ public class DangKyController implements Initializable {
         rd1.setToggleGroup(group1);
         rd2.setUserData("Nữ");
         rd2.setToggleGroup(group1);
+        rd1.setSelected(true);
+        this.ngaysinh.setValue(LocalDate.now());
+
         loadBP();
         loadDT();
     }
@@ -102,35 +106,53 @@ public class DangKyController implements Initializable {
     public void addUsers(ActionEvent evt) throws SQLException, IOException, NoSuchAlgorithmException {
 
         Date date = Date.valueOf(this.ngaysinh.getValue());
-        if (this.password.getText().equals(this.cfpassword.getText())) {
-            User u = new User(this.username.getText(), this.password.getText(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
-            UserService user = new UserService();
-            try {
-                if (user.addUser(u)) {
-                    
-                   MessageBox.getBox("Thông báo", "Thông báo","Đăng ký tài khoản thành công!", Alert.AlertType.NONE).show();
+        UserService user = new UserService();
+        if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()) {
+            MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
+        } else {
+            if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) 
+            {
+                if(6<=this.password.getText().length() && this.password.getText().length() <=45 )
+                {
+                    User u = new User(this.username.getText().trim(), this.password.getText().trim(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
+                    try {
+                        if (user.addUser(u)) {
+                            MessageBox.getBox("Thông báo", "Bạn đã đăng ký tài khoản thành công!!!", Alert.AlertType.INFORMATION).show();
+                            App.setRoot("DangNhap");
+                        } else {
+                            MessageBox.getBox("Thông báo", "Username đã tồn tại!!", Alert.AlertType.INFORMATION).show();
+                        }
+                    } catch (SQLException ex) {
+                        MessageBox.getBox("Thông báo", "Đăng ký tài khoản thất bại!!!", Alert.AlertType.ERROR).show();
+                        Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+                    }   
                 }
-            } catch (SQLException ex) {
-                 MessageBox.getBox("Thông báo", "Thông báo","Đăng ký tài khoản thất bại!", Alert.AlertType.ERROR).show();
-                Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+                else
+                {
+                    MessageBox.getBox("Thông báo", "Mật khẩu không được ít hơn 6 kí tự và nhiều hơn 45", Alert.AlertType.INFORMATION).show();
+                }
+            } else {
+                MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
             }
-        }
 
+        }
     }
 
     public void thoat(ActionEvent evt) throws IOException {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle("Thông báo");
-        a.setContentText("bạn muốn quay lại không?");
-        ButtonType bty = new ButtonType("YES", ButtonBar.ButtonData.YES);
-        ButtonType btn = new ButtonType("No", ButtonBar.ButtonData.NO);
-        a.getButtonTypes().setAll(bty, btn);
-
-        Optional<ButtonType> result = a.showAndWait();
-        if (result.get() == bty) {
-            App.setRoot("DangNhap");
-        }
-
+        Alert a = MessageBox.getBox("Thông báo", 
+                        "Bạn có muốn quay lại đăng nhập không?", 
+                        Alert.AlertType.CONFIRMATION);
+                a.showAndWait().ifPresent(res -> {
+                    if (res == ButtonType.OK)
+                    {
+                        try {
+                            App.setRoot("DangNhap");
+                        } catch (IOException ex) {
+                            Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+           });
+                        
     }
 
     public void clearForm() {
@@ -146,4 +168,5 @@ public class DangKyController implements Initializable {
         this.sdt.clear();
         this.diachi.clear();
     }
+
 }

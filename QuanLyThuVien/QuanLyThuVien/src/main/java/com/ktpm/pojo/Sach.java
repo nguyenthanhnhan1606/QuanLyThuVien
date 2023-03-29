@@ -5,6 +5,7 @@
 package com.ktpm.pojo;
 
 import java.util.Date;
+import javafx.scene.control.Button;
 
 /**
  *
@@ -20,15 +21,28 @@ public class Sach {
     private String viTri;
     private Date ngayNhapSach;
     private int sach_tl;
-
-    public Sach(String tenSach,String tenTacGia,Date namXB,String moTa,String viTri,Date ngayNhapSach, int sach_tl)
+    private Button button;
+    
+    public Sach(String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl)
     {
         this.tenSach=tenSach;
         this.tenTacGia=tenTacGia;
         this.namXB=namXB;
         this.moTa=moTa;
         this.viTri=viTri;
-        this.ngayNhapSach=ngayNhapSach;
+        this.ngayNhapSach=ngayns;
+        this.sach_tl=sach_tl;
+    }
+    
+    public Sach(int maSach,String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl)
+    {
+        this.maSach=maSach;
+        this.tenSach=tenSach;
+        this.tenTacGia=tenTacGia;
+        this.namXB=namXB;
+        this.moTa=moTa;
+        this.viTri=viTri;
+        this.ngayNhapSach=ngayns;
         this.sach_tl=sach_tl;
     }
 
