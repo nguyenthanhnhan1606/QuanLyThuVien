@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.DangKyController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.DangKyController">
    <children>
-      <Label alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="638.0" text="ĐĂNG KÝ TÀI KHOẢN MỚI" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="638.0" text="ĐĂNG KÝ TÀI KHOẢN MỚI" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
@@ -103,7 +103,17 @@
             </TextField>
          </children>
       </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="344.0" prefHeight="24.0" prefWidth="600.0" spacing="30.0">
+      <HBox alignment="CENTER" prefHeight="34.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="70.0" text="Ngày sinh" />
+            <DatePicker fx:id="ngaysinh" prefHeight="26.0" prefWidth="210.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </DatePicker>
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="420.0" prefHeight="24.0" prefWidth="600.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#addUsers" text="Đăng ký" />
             <Button mnemonicParsing="false" onAction="#thoat" text="Trở về" />
@@ -112,7 +122,5 @@
             <Insets top="25.0" />
          </padding>
       </HBox>
-      <DatePicker fx:id="ngaysinh" />
-      <Label text="Label" />
    </children>
 </VBox>

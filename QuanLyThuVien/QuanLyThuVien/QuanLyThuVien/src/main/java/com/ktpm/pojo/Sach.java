@@ -6,6 +6,7 @@ package com.ktpm.pojo;
 
 import java.util.Date;
 
+
 /**
  *
  * @author THANH NHAN
@@ -20,17 +21,30 @@ public class Sach {
     private String viTri;
     private Date ngayNhapSach;
     private int sach_tl;
-
-    public Sach(String tenSach,String tenTacGia,Date namXB,String moTa,String viTri,Date ngayNhapSach, int sach_tl)
+    
+    public Sach(String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl)
     {
         this.tenSach=tenSach;
         this.tenTacGia=tenTacGia;
         this.namXB=namXB;
         this.moTa=moTa;
         this.viTri=viTri;
-        this.ngayNhapSach=ngayNhapSach;
+        this.ngayNhapSach=ngayns;
         this.sach_tl=sach_tl;
     }
+    
+    public Sach(int maSach,String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl)
+    {
+        this.maSach=maSach;
+        this.tenSach=tenSach;
+        this.tenTacGia=tenTacGia;
+        this.namXB=namXB;
+        this.moTa=moTa;
+        this.viTri=viTri;
+        this.ngayNhapSach=ngayns;
+        this.sach_tl=sach_tl;
+    }
+    
 
     /**
      * @return the maSach
@@ -143,5 +157,7 @@ public class Sach {
     public void setSach_tl(int sach_tl) {
         this.sach_tl = sach_tl;
     }
+    
+
 
 }

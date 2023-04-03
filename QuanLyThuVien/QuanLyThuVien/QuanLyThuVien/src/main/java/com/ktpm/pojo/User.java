@@ -6,8 +6,6 @@ package com.ktpm.pojo;
 
 
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 /**
@@ -53,6 +51,29 @@ public class User {
         this.user_role=1;
         
     }
+    
+        public User(int id,String username, String password, String ten, String gioitinh,Date hanthe, Date ngaysinh, String email, String diachi,
+            String sdt, int user_bophan, int user_doituong,int user_role) throws NoSuchAlgorithmException 
+    {
+        this.id=id;
+        this.username=username;
+        this.password=password;
+        this.ten=ten;
+        this.gioitinh=gioitinh;
+        this.ngaysinh=ngaysinh;
+        this.hanthe=hanthe;
+        this.email=email;
+        this.diachi=diachi;
+        this.sdt=sdt;
+        this.user_bophan=user_bophan;
+        this.user_doituong=user_doituong;
+        this.user_role=user_role;
+        
+    }
+
+    public User(int aInt, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     /**
      * @return the id
@@ -60,7 +81,7 @@ public class User {
     public int getId() {
         return id;
     }
-
+    
     /**
      * @param id the id to set
      */

@@ -13,10 +13,18 @@ public class TheLoaiSach {
     private String tenTL;
 
     
-    public TheLoaiSach(String tenTL)
+    public TheLoaiSach(int maTLS, String tenTL)
     {
+        this.maTLS=maTLS;
         this.tenTL=tenTL;
     }
+
+    @Override
+    public String toString() {
+        return this.tenTL; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    
     /**
      * @return the maTLS
      */

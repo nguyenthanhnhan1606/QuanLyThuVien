@@ -21,11 +21,10 @@ public class TheLoaiService {
         List<TheLoaiSach> tls = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
-
-            ResultSet rs = stm.executeQuery("SELECT * FROM theloai");
+            ResultSet rs = stm.executeQuery("SELECT * FROM theloaisach");
             while (rs.next()) {
-                String tenTL = rs.getString("tenTL");
-                tls.add(new TheLoaiSach(tenTL));
+                TheLoaiSach tl = new TheLoaiSach(rs.getInt("maTLS"),rs.getString("tenTL"));
+                tls.add(tl);
             }
         }
         
