@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="1055.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.UserMuonSachController">
+   <children>
+      <Label alignment="TOP_CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="1055.0" text="Mượn sách" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="25.0" />
+         </VBox.margin>
+      </Label>
+      <HBox alignment="CENTER" prefHeight="26.0" prefWidth="600.0" spacing="25.0">
+         <children>
+            <Label text="Nhập từ khóa" />
+            <TextField fx:id="search" alignment="TOP_LEFT" prefHeight="22.0" prefWidth="462.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="29.0" prefWidth="1055.0" />
+      <TableView fx:id="tbSach" onMouseClicked="#Load" prefHeight="302.0" prefWidth="1055.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </TableView>
+      <HBox alignment="CENTER" prefHeight="319.0" prefWidth="1055.0">
+         <children>
+            <VBox prefHeight="138.0" prefWidth="776.0">
+               <children>
+                  <HBox prefHeight="32.0" prefWidth="385.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="6.0" prefWidth="528.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="85.0" text="Mã sách" />
+                              <TextField fx:id="maSach" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="6.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Tên sách" />
+                        <TextField fx:id="tenSach" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="10.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Tác giả" />
+                        <TextField fx:id="tacGia" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="67.0" prefHeight="6.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Năm xuất bản" />
+                        <DatePicker fx:id="namXB" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="8.0" prefWidth="528.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="10.0" prefWidth="528.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="85.0" text="Mô tả" />
+                              <TextField fx:id="moTa" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets top="25.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="175.0" prefWidth="1062.0">
+               <children>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="57.0" prefHeight="6.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Vị trí" />
+                        <TextField fx:id="viTri" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="10.0" prefWidth="528.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="85.0" text="Thể loại" />
+                        <ComboBox fx:id="cbTheLoaiSach" disable="true" prefWidth="205.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="0.0" prefWidth="528.0">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="528.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="85.0" text="Ngày nhập" />
+                              <DatePicker fx:id="ngayNhap" disable="true" prefHeight="26.0" prefWidth="205.0" />
+                           </children>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="510.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="54.0" prefWidth="166.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#chiTietPM" prefHeight="34.0" prefWidth="161.0" text="Chi tiết phiếu mượn" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="65.0" prefWidth="119.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#themVaoPM" prefHeight="34.0" prefWidth="89.0" text="Thêm Sách" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="54.0" prefWidth="108.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#thoat" prefHeight="36.0" prefWidth="91.0" text="Thoát" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <HBox.margin>
+                  <Insets top="25.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
