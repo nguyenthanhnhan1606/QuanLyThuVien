@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f3f3f3;" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="600.0" style="-fx-background-color: #f3f3f3;" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,8 +26,8 @@
    <children>
       <Button onAction="#quanLySach" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 125;" text="Quán lý Sách" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Button mnemonicParsing="false" onAction="#quanLyDG" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 125;" text="Quản lý Độc giả" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" onAction="#quanLyMT" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 125;" text="Quản lý Mượn Trả" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 75;" text="Tìm kiếm" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#quanLyTraSach" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 125;" text="Quản lý trả sách" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#xacNhanSach" prefHeight="26.0" prefWidth="129.0" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 126;" text="Xác nhận mượn" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" onAction="#thoat" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 75; -fx-background-color: red;" text="Đăng xuất" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="601.0" style="-fx-text-fill: #0097a7; -fx-background-color: #39ebcc;" text="QUẢN LÝ THƯ VIỆN" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER">
          <font>
@@ -59,5 +59,6 @@
             <Image url="https://cdn-icons-png.flaticon.com/512/150/150519.png" />
          </image>
       </ImageView>
+      <Button mnemonicParsing="false" onAction="#quanLyMuonSach" style="-fx-text-fill: white; -fx-background-color: #007BFF; -fx-pref-width: 125;" text="Quản lý mượn sách" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    </children>
 </GridPane>

@@ -11,6 +11,9 @@ package com.ktpm.pojo;
 public class data2 {
     private static int id;
     private static int idpm;
+    private static int idxns;
+    private static int idts;
+    private static String trangthaitra;
     /**
      * @return the id
      */
@@ -37,5 +40,47 @@ public class data2 {
      */
     public static void setIdpm(int aIdpm) {
         idpm = aIdpm;
+    }
+
+    /**
+     * @return the idxns
+     */
+    public static int getIdxns() {
+        return idxns;
+    }
+
+    /**
+     * @param aIdxns the idxns to set
+     */
+    public static void setIdxns(int aIdxns) {
+        idxns = aIdxns;
+    }
+
+    /**
+     * @return the idts
+     */
+    public static int getIdts() {
+        return idts;
+    }
+
+    /**
+     * @param aIdts the idts to set
+     */
+    public static void setIdts(int aIdts) {
+        idts = aIdts;
+    }
+
+    /**
+     * @return the trangthaitra
+     */
+    public static String getTrangthaitra() {
+        return trangthaitra;
+    }
+
+    /**
+     * @param aTrangthaitra the trangthaitra to set
+     */
+    public static void setTrangthaitra(String aTrangthaitra) {
+        trangthaitra = aTrangthaitra;
     }
 }

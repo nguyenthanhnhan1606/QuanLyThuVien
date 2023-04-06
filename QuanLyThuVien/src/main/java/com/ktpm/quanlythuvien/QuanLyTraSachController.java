@@ -5,12 +5,12 @@
 package com.ktpm.quanlythuvien;
 
 import com.ktpm.pojo.PhieuMuonSach;
-import com.ktpm.pojo.Sach;
 import com.ktpm.pojo.User;
 import com.ktpm.pojo.data2;
-import static com.ktpm.quanlythuvien.UserMuonSachController.s;
 import static com.ktpm.quanlythuvien.UserMuonSachController.user;
+import static com.ktpm.quanlythuvien.XacNhanSachController.pm;
 import com.ktpm.services.PhieuMuonService;
+import com.ktpm.services.SachService;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
@@ -43,15 +43,18 @@ import javafx.stage.Stage;
  *
  * @author THANH NHAN
  */
-public class UserLichSuController implements Initializable {
+public class QuanLyTraSachController implements Initializable {
 
     private User us;
-    private PhieuMuonService pm = new PhieuMuonService();
+    public static PhieuMuonService pm = new PhieuMuonService();
+    public static SachService s = new SachService();
 
     @FXML
     TableView<PhieuMuonSach> tbPms;
     @FXML
     private TextField id;
+    @FXML
+    private TextField idDG;
     @FXML
     private TextField soluong;
     @FXML
@@ -60,7 +63,6 @@ public class UserLichSuController implements Initializable {
     private DatePicker ngaymuon;
     @FXML
     private DatePicker hantra;
-
     @FXML
     private TextField search;
 
@@ -72,15 +74,27 @@ public class UserLichSuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         loadTableColumns();
         try {
-            loadTableData();
+            loadTableData(null);
         } catch (SQLException ex) {
             Logger.getLogger(UserLichSuController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.search.textProperty().addListener(e -> {
+            try {
+                this.loadTableData(this.search.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
     }
 
     private void loadTableColumns() {
         TableColumn colID = new TableColumn("ID");
         colID.setCellValueFactory(new PropertyValueFactory("id"));
+
+        TableColumn colMaDG = new TableColumn("Mã độc giả");
+        colMaDG.setCellValueFactory(new PropertyValueFactory("id_user"));
+        colMaDG.setPrefWidth(250);
 
         TableColumn colName = new TableColumn("Số lượng");
         colName.setCellValueFactory(new PropertyValueFactory("soluong"));
@@ -96,71 +110,12 @@ public class UserLichSuController implements Initializable {
         TableColumn colDescription = new TableColumn("Trạng thái");
         colDescription.setCellValueFactory(new PropertyValueFactory("trangthai"));
         colDescription.setPrefWidth(200);
-        this.tbPms.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription);
+        this.tbPms.getColumns().addAll(colID, colMaDG, colName, colAuthor, colExport, colDescription);
     }
 
-    public void loadTableData() throws SQLException {
-        List<PhieuMuonSach> pms = pm.getHis(data2.getId());
+    public void loadTableData(String kw) throws SQLException {
+        List<PhieuMuonSach> pms = pm.getPhieuMuonSachTS(kw);
         this.tbPms.setItems(FXCollections.observableList(pms));
-    }
-
-    public void chiTietLs(ActionEvent evt) throws IOException, SQLException {
-        PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
-        if (pms != null) {
-            data2.setIdpm(pms.getId());
-            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChiTietLS.fxml"));
-            Parent manageView = loader.load();
-            Scene scene = new Scene(manageView);
-            ChiTietLSController controller = loader.getController();
-            controller.setUser(us);
-            stage.setScene(scene);
-            stage.show();
-        } else {
-            MessageBox.getBox("Thông báo", "Bạn chưa chọn phiếu cần xem!!!", Alert.AlertType.ERROR).show();
-        }
-    }
-
-    public void huyPhieu(ActionEvent evt) throws SQLException {
-        boolean temp = false;
-        PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
-        if (pms != null) {
-            if (this.trangthai.getText().trim().equals("Chờ lấy sách")) {
-                pm.updateTrangThaiPM(Integer.parseInt(this.id.getText()));
-                List<Sach> sa = s.getSachOnPM(Integer.parseInt(this.id.getText()));
-                for (int i = 0; i < sa.size(); i++) {
-                    if (s.updateTtCu(sa.get(i).getMaSach())) {
-                        temp = true;
-                    } else {
-                        temp = false;
-                        break;
-                    }
-                }
-                if (temp) {
-                    loadTableData();
-                    MessageBox.getBox("Thông báo", "Hủy phiếu thành công", Alert.AlertType.ERROR).show();
-                } else {
-                    MessageBox.getBox("Thông báo", "Hủy phiếu thất bại", Alert.AlertType.ERROR).show();
-
-                }
-            } else {
-                MessageBox.getBox("Thông báo", "Phiếu này không thể hủy", Alert.AlertType.ERROR).show();
-            }
-        } else {
-            MessageBox.getBox("Thông báo", "Bạn chưa chọn phiếu cần hủy!!!", Alert.AlertType.ERROR).show();
-        }
-    }
-
-    public void thoat(ActionEvent evt) throws IOException, SQLException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
-        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("User.fxml"));
-        Parent manageView = loader.load();
-        Scene scene = new Scene(manageView);
-        UserController controller = loader.getController();
-        controller.thongTin(ur);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void Load(MouseEvent evt) {
@@ -169,13 +124,47 @@ public class UserLichSuController implements Initializable {
             LocalDate date = Instant.ofEpochMilli(pms.getNgaymuon().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate date1 = Instant.ofEpochMilli(pms.getHantra().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
             this.id.setText(String.valueOf(pms.getId()));
+            this.idDG.setText(String.valueOf(pms.getId_user()));
             this.soluong.setText(String.valueOf(pms.getSoluong()));
             this.trangthai.setText(pms.getTrangthai());
             this.ngaymuon.setValue(date);
             this.hantra.setValue(date1);
         } else {
             MessageBox.getBox("Thông báo", "Bạn hãy chọn vào phiếu có sẵn!!!", Alert.AlertType.ERROR).show();
+
         }
 
     }
+
+    public void chiTietTS(ActionEvent evt) throws IOException, SQLException {
+        PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
+        if (pms != null) {
+            data2.setIdts(pms.getId());
+            data2.setTrangthaitra(pms.getTrangthai());
+            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ChiTietTS.fxml"));
+            Parent manageView = loader.load();
+            Scene scene = new Scene(manageView);
+            ChiTietTSController controller = loader.getController();
+            controller.setUser(us);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            MessageBox.getBox("Thông báo", "Bạn chưa chọn phiếu cần xem!!!", Alert.AlertType.ERROR).show();
+        }
+
+    }
+
+    public void thoat(ActionEvent evt) throws IOException, SQLException {
+        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        AdminController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

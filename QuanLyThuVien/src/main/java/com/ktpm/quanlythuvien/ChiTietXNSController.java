@@ -9,7 +9,9 @@ import com.ktpm.pojo.TheLoaiSach;
 import com.ktpm.pojo.User;
 import com.ktpm.pojo.data2;
 import static com.ktpm.quanlythuvien.UserMuonSachController.s;
+import static com.ktpm.quanlythuvien.XacNhanSachController.pm;
 import com.ktpm.services.TheLoaiService;
+import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -41,7 +44,7 @@ import javafx.stage.Stage;
  *
  * @author THANH NHAN
  */
-public class ChiTietLSController implements Initializable {
+public class ChiTietXNSController implements Initializable {
 
     private User us;
 
@@ -75,17 +78,11 @@ public class ChiTietLSController implements Initializable {
         try {
             loadTL();
             this.loadTableColumns();
-            this.loadTableData(null);
+            this.loadTableData();
         } catch (SQLException ex) {
             Logger.getLogger(UserMuonSachController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.search.textProperty().addListener(e -> {
-            try {
-                this.loadTableData(this.search.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+   
     }
 
     private void loadTableColumns() {
@@ -120,8 +117,8 @@ public class ChiTietLSController implements Initializable {
         this.tbSach.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription, colPosition, colExport1, colCate);
     }
 
-    private void loadTableData(String kw) throws SQLException {
-        List<Sach> sa = s.getSachOnPM(data2.getIdpm());
+    private void loadTableData() throws SQLException {
+        List<Sach> sa = s.getSachOnPM(data2.getIdxns());
         this.tbSach.getItems().clear();
         this.tbSach.setItems(FXCollections.observableList(sa));
 
@@ -146,15 +143,16 @@ public class ChiTietLSController implements Initializable {
         this.ngayNhap.setValue(date1);
     }
 
-
+    
     public void thoat(ActionEvent evt) throws IOException, SQLException {
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("LichSuMuon.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyXacNhanMuon.fxml"));
         Parent manageView = loader.load();
         Scene scene = new Scene(manageView);
-        UserLichSuController controller = loader.getController();
+        XacNhanSachController controller = loader.getController();
         controller.setUser(us);
         stage.setScene(scene);
         stage.show();
     }
 }
+

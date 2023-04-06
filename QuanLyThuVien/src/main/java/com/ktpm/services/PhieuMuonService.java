@@ -64,11 +64,33 @@ public class PhieuMuonService {
         }
         return pms;
     }
+ public PhieuMuonSach getPMTT(int nam, int thang, int ngay, int id_user1) throws SQLException {
+        PhieuMuonSach pms = null;
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM phieumuonsach where Year(ngaymuon)= ? && month(ngaymuon) = ? && day(ngaymuon)= ? && id_user= ? && trangthai=N'Đang mượn sách'";
+            PreparedStatement stm = conn.prepareCall(sql);
+            stm.setInt(1, nam);
+            stm.setInt(2, thang);
+            stm.setInt(3, ngay);
+            stm.setInt(4, id_user1);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pm = new PhieuMuonSach(rs.getInt("id"),
+                        rs.getDate("ngaymuon"),
+                        rs.getDate("hantra"),
+                        rs.getInt("id_user"),
+                        rs.getInt("soluong"),
+                        rs.getString("trangthai"));
+                pms = pm;
+            }
+        }
+        return pms;
+    }
 
     public boolean kiemTraMuon(int id) throws SQLException {
         PhieuMuonSach pms = null;
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM phieumuonsach where id_user= ? && trangthai=N'Chờ lấy sách' || id_user= ? && trangthai=N'Đã lấy sách'";
+            String sql = "SELECT * FROM phieumuonsach where id_user= ? && trangthai=N'Chờ lấy sách' || id_user= ? && trangthai=N'Đang mượn sách'";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, id);
             stm.setInt(2, id);
@@ -97,7 +119,7 @@ public class PhieuMuonService {
             String sql = "select * from phieumuonsach p where p.id_user=?";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, id);
-         
+
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
@@ -105,5 +127,89 @@ public class PhieuMuonService {
             }
         }
         return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSach() throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "select * from phieumuonsach";
+            PreparedStatement stm = conn.prepareCall(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachXN(String kw) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "select * from phieumuonsach where (trangthai=N'Chờ lấy sách' || trangthai=N'Đã hủy')";
+            if (kw != null && !kw.isEmpty()) {
+                sql += " && id_user=?";
+            }
+            PreparedStatement stm = conn.prepareCall(sql);
+            if (kw != null && !kw.isEmpty()) {
+                stm.setInt(1, Integer.parseInt(kw));
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachTS(String kw) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "select * from phieumuonsach where (trangthai=N'Đang mượn sách' || trangthai=N'Đã trả')";
+            if (kw != null && !kw.isEmpty()) {
+                sql += " && id_user=?";
+            }
+            PreparedStatement stm = conn.prepareCall(sql);
+            if (kw != null && !kw.isEmpty()) {
+                stm.setInt(1, Integer.parseInt(kw));
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public boolean updateTrangThaiPM(int id) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "Update phieumuonsach set trangthai=N'Đã hủy' Where id=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id);
+            int r = stm.executeUpdate();
+            return r > 0;
+        }
+    }
+
+    public boolean updateTrangThaiPMSS(int id) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "Update phieumuonsach set trangthai=N'Đang mượn sách' Where id=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id);
+            int r = stm.executeUpdate();
+            return r > 0;
+        }
+    }
+    
+        public boolean updateTrangThaiPMDT(int id) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "Update phieumuonsach set trangthai=N'Đã trả' Where id=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id);
+            int r = stm.executeUpdate();
+            return r > 0;
+        }
     }
 }

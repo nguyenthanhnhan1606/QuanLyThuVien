@@ -118,6 +118,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="510.0">
                      <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#huyPhieu" prefHeight="34.0" prefWidth="89.0" text="Hủy phiếu" />
                         <VBox alignment="CENTER" prefHeight="65.0" prefWidth="119.0">
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#chiTietLs" prefHeight="34.0" prefWidth="89.0" text="Xem chi tiết" />

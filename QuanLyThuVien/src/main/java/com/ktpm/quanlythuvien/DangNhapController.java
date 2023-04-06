@@ -4,12 +4,19 @@
  */
 package com.ktpm.quanlythuvien;
 
+import com.ktpm.pojo.PhieuMuonSach;
+import com.ktpm.pojo.Sach;
 import com.ktpm.pojo.User;
+import com.ktpm.services.PhieuMuonService;
+import com.ktpm.services.SachService;
 import com.ktpm.services.UserService;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,19 +44,44 @@ public class DangNhapController implements Initializable {
     @FXML
     private PasswordField password;
     UserService u = new UserService();
+    public static PhieuMuonService pm = new PhieuMuonService();
+    public static SachService s = new SachService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        try {
+            List<Sach> sa;
+            List<PhieuMuonSach> pms = pm.getPhieuMuonSach();
+            long t = System.currentTimeMillis();
+            for (int i = 0; i < pms.size(); i++) {
+                if (t - pms.get(i).getNgaymuon().getTime() == 172800) {
+                    pm.updateTrangThaiPM(pms.get(i).getId());
+                }
+            }
+//            for(int i=0;i<pms.size();i++)
+//            {
+//                sa=s.genSachOnPMHuy(pms.get(i).getId());
+//                for(int j=0;j<sa.size();j++)
+//                {
+//                    s.updateTtCu(sa.get(j).getMaSach());
+//                }
+//            }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(DangNhapController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void login(ActionEvent evt) throws IOException {
         try {
             if (u.checkLoginAdmin(this.username.getText().trim(), this.password.getText().trim())) {
+                User ur = u.getU(this.username.getText(), this.password.getText());
                 Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
                 Parent manageView = loader.load();
                 Scene scene = new Scene(manageView);
+                AdminController controller = loader.getController();
+                controller.setUser(ur);
                 stage.setScene(scene);
                 stage.show();
             } else {

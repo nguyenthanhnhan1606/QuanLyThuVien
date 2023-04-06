@@ -26,7 +26,11 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import static javafx.scene.control.ButtonType.OK;
@@ -38,6 +42,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -80,7 +85,6 @@ public class DangKyController implements Initializable {
         rd2.setToggleGroup(group1);
         rd1.setSelected(true);
         this.ngaysinh.setValue(LocalDate.now());
-
         loadBP();
         loadDT();
     }
@@ -112,25 +116,26 @@ public class DangKyController implements Initializable {
         if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()) {
             MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
         } else {
-            if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) 
-            {
-                if(p.check(this.password.getText().trim()))
-                {
+            if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) {
+                if (p.check(this.password.getText().trim())) {
                     User u = new User(this.username.getText().trim(), this.password.getText().trim(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
                     try {
                         if (user.addUser(u)) {
                             MessageBox.getBox("Thông báo", "Bạn đã đăng ký tài khoản thành công!!!", Alert.AlertType.INFORMATION).show();
-                            App.setRoot("DangNhap");
+                            Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("DangNhap.fxml"));
+                            Parent manageView = loader.load();
+                            Scene scene = new Scene(manageView);
+                            stage.setScene(scene);
+                            stage.show();
                         } else {
                             MessageBox.getBox("Thông báo", "Username đã tồn tại!!", Alert.AlertType.INFORMATION).show();
                         }
                     } catch (SQLException ex) {
                         MessageBox.getBox("Thông báo", "Đăng ký tài khoản thất bại!!!", Alert.AlertType.ERROR).show();
                         Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
-                    }   
-                }
-                else
-                {
+                    }
+                } else {
                     MessageBox.getBox("Thông báo", "Mật khẩu không được ít hơn 6 kí tự và nhiều hơn 45 và phải có chữ hoa, chữ thường và kí tự", Alert.AlertType.INFORMATION).show();
                 }
             } else {
@@ -141,20 +146,24 @@ public class DangKyController implements Initializable {
     }
 
     public void thoat(ActionEvent evt) throws IOException {
-        Alert a = MessageBox.getBox("Thông báo", 
-                        "Bạn có muốn quay lại đăng nhập không?", 
-                        Alert.AlertType.CONFIRMATION);
-                a.showAndWait().ifPresent(res -> {
-                    if (res == ButtonType.OK)
-                    {
-                        try {
-                            App.setRoot("DangNhap");
-                        } catch (IOException ex) {
-                            Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-           });
-                        
+        Alert a = MessageBox.getBox("Thông báo",
+                "Bạn có muốn quay lại đăng nhập không?",
+                Alert.AlertType.CONFIRMATION);
+        a.showAndWait().ifPresent(res -> {
+            if (res == ButtonType.OK) {
+                try {
+                    Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("DangNhap.fxml"));
+                    Parent manageView = loader.load();
+                    Scene scene = new Scene(manageView);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException ex) {
+                    Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
     }
 
     public void clearForm() {

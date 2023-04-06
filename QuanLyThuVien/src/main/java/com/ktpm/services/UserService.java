@@ -103,6 +103,7 @@ public class UserService {
         }
         return true;
     }
+
     public User getU(String username, String password) throws SQLException {
         UserService user = new UserService();
         List<User> users = user.getUser();
@@ -133,21 +134,34 @@ public class UserService {
         }
         return false;
     }
-    
-     public boolean checkLoginAdmin(String username, String password) throws SQLException {
+
+    public boolean checkLoginAdmin(String username, String password) throws SQLException {
         UserService user = new UserService();
         List<User> users = user.getUser();
         for (User user1 : users) {
-            if (user1.getUsername().equals(username) && user1.getPassword().equals(password) && user1.getUser_role()==2) {
+            if (user1.getUsername().equals(username) && user1.getPassword().equals(password) && user1.getUser_role() == 2) {
                 return true;
             }
         }
         return false;
     }
-     
-     
+
     public boolean checkChar(String password) {
         return p.check(password);
+    }
+
+    public boolean updatePass(int id, String password) throws SQLException {
+        if (p.check(password)) {
+            try (Connection conn = JdbcUtils.getConn()) {
+                String sql = "Update user set password=? Where id=?";
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, password);
+                stm.setInt(2, id);
+                int r = stm.executeUpdate();
+                return r > 0;
+            }
+        }
+        return false;
     }
 
     public boolean update(User u) throws SQLException {

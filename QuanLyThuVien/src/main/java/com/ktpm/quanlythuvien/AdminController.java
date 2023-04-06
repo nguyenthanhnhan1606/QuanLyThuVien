@@ -4,6 +4,7 @@
  */
 package com.ktpm.quanlythuvien;
 
+import com.ktpm.pojo.User;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -23,6 +24,13 @@ import javafx.stage.Stage;
  */
 public class AdminController {
 
+    private User us;
+    
+    
+    public void setUser(User u)
+    {
+        this.us=u;
+    }
     public void thoat(ActionEvent evt) {
         Alert a = MessageBox.getBox("Thông báo",
                 "Bạn có muốn thoát không?",
@@ -62,7 +70,36 @@ public class AdminController {
         stage.show();
     }
 
-    public void quanLyMT(ActionEvent evt) throws IOException {
-        App.setRoot("QuanLyMuonTraSach");
+    public void xacNhanSach(ActionEvent evt) throws IOException {
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyXacNhanMuon.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        XacNhanSachController controller = loader.getController();
+        controller.setUser(us);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void quanLyTraSach(ActionEvent evt) throws IOException {
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyTraSach.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        QuanLyTraSachController controller = loader.getController();
+        controller.setUser(us);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void quanLyMuonSach(ActionEvent evt) throws IOException {
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyMuonSach.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        QuanLyMuonSachController controller = loader.getController();
+        controller.setUser(us);
+        stage.setScene(scene);
+        stage.show();
     }
 }

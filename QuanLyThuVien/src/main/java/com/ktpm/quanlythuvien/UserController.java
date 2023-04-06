@@ -68,7 +68,6 @@ public class UserController {
         Scene scene = new Scene(manageView);
         stage.setScene(scene);
         stage.show();
-
     }
 
 }

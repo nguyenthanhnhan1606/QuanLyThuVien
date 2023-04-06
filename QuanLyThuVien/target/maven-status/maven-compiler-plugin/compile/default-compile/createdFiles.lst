@@ -24,5 +24,4 @@ com\ktpm\quanlythuvien\DangKyController.class
 com\ktpm\services\UserService.class
 com\ktpm\quanlythuvien\DangNhapController.class
 com\ktpm\quanlythuvien\DanhSachBanDocController.class
-com\ktpm\quanlythuvien\MuonTraSachController.class
 com\ktpm\quanlythuvien\UserController.class

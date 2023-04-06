@@ -73,8 +73,8 @@ public class UserThongTinController {
         this.ten.setText(u.getTen());
         this.gioitinh.setText(u.getGioitinh());
         this.ngaysinh.setValue(date);
-        this.cbdoituong.getSelectionModel().select(u.getUser_doituong());
-        this.cbboPhan.getSelectionModel().select(u.getUser_bophan());
+        this.cbdoituong.getSelectionModel().select(u.getUser_doituong()-1);
+        this.cbboPhan.getSelectionModel().select(u.getUser_bophan()-1);
         this.hanthe.setText(date.toString() + " ==>> " + date1.toString());
         this.email.setText(u.getEmail());
         this.diachi.setText(u.getDiachi());
@@ -109,7 +109,19 @@ public class UserThongTinController {
         stage.setScene(scene);
         stage.show();
     }
-
+    
+    public void doiMatKhau(ActionEvent evt) throws IOException, SQLException {
+        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DoiMatKhau.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        DoiMatKhauController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     public void loadBP() {
         BoPhanService b = new BoPhanService();
         try {

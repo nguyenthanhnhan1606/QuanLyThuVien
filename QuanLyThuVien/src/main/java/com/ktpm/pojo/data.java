@@ -4,6 +4,7 @@
  */
 package com.ktpm.pojo;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class data {
     public static List<Sach> sa = new ArrayList<>();
+    public static List<Sach> sa1= new ArrayList<>();
     /**
      * @return the sa
      */
@@ -33,5 +35,27 @@ public class data {
             if(getSa().get(i).getMaSach()==s.getMaSach())
                 return false;
         return true;
+    }
+
+    
+     public boolean kts1(Sach s)
+    {
+        for(int i=0;i<getSa1().size();i++)
+            if(getSa1().get(i).getMaSach()==s.getMaSach())
+                return false;
+        return true;
+    }
+    /**
+     * @return the sa1
+     */
+    public static List<Sach> getSa1() {
+        return sa1;
+    }
+
+    /**
+     * @param aSa1 the sa1 to set
+     */
+    public static void setSa1(List<Sach> aSa1) {
+        sa1 = aSa1;
     }
 }

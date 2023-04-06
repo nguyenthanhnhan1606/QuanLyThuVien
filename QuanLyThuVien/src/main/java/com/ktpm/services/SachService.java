@@ -119,12 +119,37 @@ public class SachService {
             return r > 0;
         }
     }
+    
+    public boolean updateTtCu(int id) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "Update sach set trangthai=N'Chưa đặt' Where maSach=? && trangthai=N'Đã được đặt'";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, id);
+            int r = stm.executeUpdate();
+            return r > 0;
+        }
+    }
 
-    public List<Sach> genSachOnPM(int idpm) throws SQLException {
+    public List<Sach> getSachOnPM(int idpm) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "select s.* from phieumuonsach p join chitietpm c on c.id_Pm=? join sach s on c.id_sach=s.maSach ";
+            String sql = "select s.* from phieumuonsach p join chitietpm c on c.id_Pm=? join sach s on c.id_sach=s.maSach group by s.maSach ";
 
+            PreparedStatement stm = conn.prepareCall(sql);
+            stm.setInt(1, idpm);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"));
+                s.add(sa);
+            }
+        }
+        return s;
+    }
+    
+    public List<Sach> getSachOnPMHuy(int idpm) throws SQLException {
+        List<Sach> s = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "select s.* from phieumuonsach p join chitietpm c on c.id_Pm=? join sach s on c.id_sach=s.maSach Where p.trangthai=N'Đã hủy' ";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, idpm);
             ResultSet rs = stm.executeQuery();

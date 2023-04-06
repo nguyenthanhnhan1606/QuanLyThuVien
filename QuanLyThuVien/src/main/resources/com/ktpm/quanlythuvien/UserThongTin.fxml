@@ -92,6 +92,11 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0">
          <children>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="126.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#doiMatKhau" text="Đổi mật khẩu" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="58.0" prefWidth="138.0">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#update" text="Lưu thông tin" textAlignment="CENTER" />
