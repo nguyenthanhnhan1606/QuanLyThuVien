@@ -52,21 +52,20 @@ public class DangNhapController implements Initializable {
         try {
             List<Sach> sa;
             List<PhieuMuonSach> pms = pm.getPhieuMuonSach();
-            long t = System.currentTimeMillis();
+            int m = LocalDate.now().getDayOfYear();
             for (int i = 0; i < pms.size(); i++) {
-                if (t - pms.get(i).getNgaymuon().getTime() == 172800) {
-                    pm.updateTrangThaiPM(pms.get(i).getId());
+                if (!pms.get(i).getTrangthai().equals("Đã hủy") && !pms.get(i).getTrangthai().equals("Đang mượn sách")
+                        && !pms.get(i).getTrangthai().equals("Đã trả")) {
+                    if (m - LocalDate.parse(pms.get(i).getNgaymuon().toString()).getDayOfYear() == 2) {
+                        if (pm.updateTrangThaiPM(pms.get(i).getId())) {
+                            sa = s.getSachOnPMHuy(pms.get(i).getId());
+                            for (int j = 0; j < sa.size(); j++) {
+                                s.updateTtCu(sa.get(j).getMaSach());
+                            }
+                        }
+                    }
                 }
             }
-//            for(int i=0;i<pms.size();i++)
-//            {
-//                sa=s.genSachOnPMHuy(pms.get(i).getId());
-//                for(int j=0;j<sa.size();j++)
-//                {
-//                    s.updateTtCu(sa.get(j).getMaSach());
-//                }
-//            }
-
         } catch (SQLException ex) {
             Logger.getLogger(DangNhapController.class.getName()).log(Level.SEVERE, null, ex);
         }

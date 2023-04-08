@@ -74,7 +74,6 @@ public class UserCtpmController implements Initializable {
     @FXML
     private DatePicker ngayNhap;
 
-
     public void setUser(User u) {
         this.us = u;
     }
@@ -119,11 +118,8 @@ public class UserCtpmController implements Initializable {
         colCate.setCellValueFactory(new PropertyValueFactory("sach_tl"));
         colCate.setPrefWidth(100);
 
-        TableColumn colSta = new TableColumn("Trạng thái");
-        colSta.setCellValueFactory(new PropertyValueFactory("trangthai"));
-        colSta.setPrefWidth(100);
-
-        this.tbSach.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription, colPosition, colExport1, colCate, colSta);
+       
+        this.tbSach.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription, colPosition, colExport1, colCate);
     }
 
     private void loadTableData() {
@@ -152,48 +148,55 @@ public class UserCtpmController implements Initializable {
 
     public void delete(ActionEvent evt) throws SQLException {
         Sach sa = tbSach.getSelectionModel().getSelectedItem();
-        Alert a = MessageBox.getBox("Question",
-                "Are you sure to delete this question?",
-                Alert.AlertType.CONFIRMATION);
-        a.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
-                if (data.sa.remove(sa)) {
-                    MessageBox.getBox("Question", "Delete successful", Alert.AlertType.INFORMATION).show();
-                    this.loadTableData();
-                } else {
-                    MessageBox.getBox("Question", "Delete failed", Alert.AlertType.WARNING).show();
+        if (sa != null) {
+            Alert a = MessageBox.getBox("Question",
+                    "Are you sure to delete this question?",
+                    Alert.AlertType.CONFIRMATION);
+            a.showAndWait().ifPresent(res -> {
+                if (res == ButtonType.OK) {
+                    if (data.sa.remove(sa)) {
+                        MessageBox.getBox("Question", "Delete successful", Alert.AlertType.INFORMATION).show();
+                        this.loadTableData();
+                    } else {
+                        MessageBox.getBox("Question", "Delete failed", Alert.AlertType.WARNING).show();
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            MessageBox.getBox("Question", "Bạn chưa chọn sách cần xóa", Alert.AlertType.WARNING).show();
+        }
+
     }
 
     public void datMuon(ActionEvent evt) throws SQLException {
-        Date date = Date.valueOf(LocalDate.now());
-        LocalDate localDate = LocalDate.now();
-        int nam = localDate.getYear();
-        int thang = localDate.getMonthValue();
-        int ngay = localDate.getDayOfMonth();
-        
-       
-        LocalDate futureDate = LocalDate.now().plusMonths(1);
-        Date date1=Date.valueOf(futureDate);
-        PhieuMuonSach pms = new PhieuMuonSach(date, date1, us.getId(), data.sa.size(), "Chờ lấy sách");
-        if (pm.addPhieuMuon(pms)) {
-            PhieuMuonSach phieu = pm.getPM(nam, thang, ngay, us.getId());
-            for (int i = 0; i < data.sa.size(); i++) {
-                ChiTietPM ctpm = new ChiTietPM(data.sa.get(i).getMaSach(), phieu.getId());
-                if (ct.addChiTiet(ctpm)) {
-                    s.updateTT(data.sa.get(i).getMaSach());
-                } else {
-                    MessageBox.getBox("Thông báo", "đặt không thành công", Alert.AlertType.WARNING).show();
-                }
+        if (data.sa.size() >= 1) {
+            Date date = Date.valueOf(LocalDate.now());
+            LocalDate localDate = LocalDate.now();
+            int nam = localDate.getYear();
+            int thang = localDate.getMonthValue();
+            int ngay = localDate.getDayOfMonth();
+            LocalDate futureDate = LocalDate.now().plusMonths(1);
+            Date date1 = Date.valueOf(futureDate);
+            PhieuMuonSach pms = new PhieuMuonSach(date, date1, us.getId(), data.sa.size(), "Chờ lấy sách");
+            if (pm.addPhieuMuon(pms)) {
+                PhieuMuonSach phieu = pm.getPM(nam, thang, ngay, us.getId());
+                for (int i = 0; i < data.sa.size(); i++) {
+                    ChiTietPM ctpm = new ChiTietPM(data.sa.get(i).getMaSach(), phieu.getId());
+                    if (ct.addChiTiet(ctpm)) {
+                        s.updateTT(data.sa.get(i).getMaSach());
+                    } else {
+                        MessageBox.getBox("Thông báo", "đặt không thành công", Alert.AlertType.WARNING).show();
+                    }
 
+                }
+                data.sa.clear();
+                loadTableData();
+                MessageBox.getBox("Thông báo", "Đặt thành công!!Bạn hãy lấy sách trong vòng 48h", Alert.AlertType.INFORMATION).show();
+            } else {
+                MessageBox.getBox("Thông báo", "Đặt không thành công", Alert.AlertType.WARNING).show();
             }
-            data.sa.clear();
-            loadTableData();
-            MessageBox.getBox("Thông báo", "Đặt thành công!!Bạn hãy lấy sách trong vòng 48h", Alert.AlertType.INFORMATION).show();
         } else {
-            MessageBox.getBox("Thông báo", "Đặt không thành công", Alert.AlertType.WARNING).show();
+            MessageBox.getBox("Thông báo", "Đặt không thành công. Bạn chưa chọn sách để mượn", Alert.AlertType.WARNING).show();
         }
 
     }

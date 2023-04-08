@@ -57,6 +57,8 @@ public class AdminController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLySach.fxml"));
         Parent manageView = loader.load();
         Scene scene = new Scene(manageView);
+        QuanLySachController controller = loader.getController();
+        controller.setUser(us);
         stage.setScene(scene);
         stage.show();
     }
@@ -66,6 +68,8 @@ public class AdminController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyDocGia.fxml"));
         Parent manageView = loader.load();
         Scene scene = new Scene(manageView);
+        DanhSachBanDocController controller = loader.getController();
+        controller.setUser(us);
         stage.setScene(scene);
         stage.show();
     }

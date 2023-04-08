@@ -44,11 +44,15 @@ import javafx.stage.Stage;
  * @author THANH NHAN
  */
 public class QuanLyTraSachController implements Initializable {
-
+    
     private User us;
     public static PhieuMuonService pm = new PhieuMuonService();
     public static SachService s = new SachService();
-
+    
+    @FXML
+    private TextField thoihan;
+    @FXML
+    private DatePicker ngaytra;
     @FXML
     TableView<PhieuMuonSach> tbPms;
     @FXML
@@ -65,15 +69,16 @@ public class QuanLyTraSachController implements Initializable {
     private DatePicker hantra;
     @FXML
     private TextField search;
-
+    
     public void setUser(User u) {
         this.us = u;
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadTableColumns();
         try {
+            this.ngaytra.setValue(LocalDate.now());
             loadTableData(null);
         } catch (SQLException ex) {
             Logger.getLogger(UserLichSuController.class.getName()).log(Level.SEVERE, null, ex);
@@ -85,39 +90,39 @@ public class QuanLyTraSachController implements Initializable {
                 Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
+        
     }
-
+    
     private void loadTableColumns() {
         TableColumn colID = new TableColumn("ID");
         colID.setCellValueFactory(new PropertyValueFactory("id"));
-
+        
         TableColumn colMaDG = new TableColumn("Mã độc giả");
         colMaDG.setCellValueFactory(new PropertyValueFactory("id_user"));
         colMaDG.setPrefWidth(250);
-
+        
         TableColumn colName = new TableColumn("Số lượng");
         colName.setCellValueFactory(new PropertyValueFactory("soluong"));
         colName.setPrefWidth(250);
-
+        
         TableColumn colAuthor = new TableColumn("Ngày mượn");
         colAuthor.setCellValueFactory(new PropertyValueFactory("ngaymuon"));
         colAuthor.setPrefWidth(100);
-
+        
         TableColumn colExport = new TableColumn("Hạn trả");
         colExport.setCellValueFactory(new PropertyValueFactory("hantra"));
-
+        
         TableColumn colDescription = new TableColumn("Trạng thái");
         colDescription.setCellValueFactory(new PropertyValueFactory("trangthai"));
         colDescription.setPrefWidth(200);
         this.tbPms.getColumns().addAll(colID, colMaDG, colName, colAuthor, colExport, colDescription);
     }
-
+    
     public void loadTableData(String kw) throws SQLException {
         List<PhieuMuonSach> pms = pm.getPhieuMuonSachTS(kw);
         this.tbPms.setItems(FXCollections.observableList(pms));
     }
-
+    
     public void Load(MouseEvent evt) {
         PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
         if (pms != null) {
@@ -129,13 +134,26 @@ public class QuanLyTraSachController implements Initializable {
             this.trangthai.setText(pms.getTrangthai());
             this.ngaymuon.setValue(date);
             this.hantra.setValue(date1);
+            int i = date1.getDayOfYear();
+            int j = this.ngaytra.getValue().getDayOfYear();
+            int t = i - j;
+            if (!this.trangthai.getText().equals("Đã trả")) {
+                if (i - j > 0) {
+                    this.thoihan.setText("Sớm " + t + " ngày");
+                } else {
+                    this.thoihan.setText("Trễ " + t + " ngày");
+                }
+            } else {
+                this.thoihan.setText(this.trangthai.getText());
+            }
+            
         } else {
             MessageBox.getBox("Thông báo", "Bạn hãy chọn vào phiếu có sẵn!!!", Alert.AlertType.ERROR).show();
-
+            
         }
-
+        
     }
-
+    
     public void chiTietTS(ActionEvent evt) throws IOException, SQLException {
         PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
         if (pms != null) {
@@ -152,9 +170,9 @@ public class QuanLyTraSachController implements Initializable {
         } else {
             MessageBox.getBox("Thông báo", "Bạn chưa chọn phiếu cần xem!!!", Alert.AlertType.ERROR).show();
         }
-
+        
     }
-
+    
     public void thoat(ActionEvent evt) throws IOException, SQLException {
         User ur = user.getU(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
@@ -166,5 +184,5 @@ public class QuanLyTraSachController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    
 }

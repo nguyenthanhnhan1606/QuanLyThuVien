@@ -117,6 +117,28 @@
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="235.0" prefWidth="781.0">
                <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="284.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="18.0" prefWidth="427.0">
+                                 <children>
+                                    <Label prefHeight="18.0" prefWidth="66.0" text="Ngày trả" />
+                                    <DatePicker fx:id="ngaytra" disable="true" prefHeight="25.0" prefWidth="191.0" />
+                                 </children>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="thoihan" alignment="CENTER" disable="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="110.0" prefHeight="0.0" prefWidth="528.0">
                      <padding>
                         <Insets top="5.0" />

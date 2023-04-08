@@ -51,7 +51,13 @@ import javafx.stage.Stage;
  */
 public class DanhSachBanDocController implements Initializable {
 
+    private User us;
+
+    public void setUser(User u) {
+        this.us = u;
+    }
     static UserService user = new UserService();
+
     @FXML
     TableView<User> tbUser;
     @FXML
@@ -215,24 +221,16 @@ public class DanhSachBanDocController implements Initializable {
         });
     }
 
-    public void thoatQLDG(ActionEvent evt) {
-        Alert a = MessageBox.getBox("Thông báo",
-                "Bạn có muốn quay lại trang chủ không?",
-                Alert.AlertType.CONFIRMATION);
-        a.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
-                try {
-                    Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
-                    Parent manageView = loader.load();
-                    Scene scene = new Scene(manageView);
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+    public void thoatQLDG(ActionEvent evt) throws SQLException, IOException {
+        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        AdminController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
 
     }
 
