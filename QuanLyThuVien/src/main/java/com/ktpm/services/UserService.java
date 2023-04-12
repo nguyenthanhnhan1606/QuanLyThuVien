@@ -64,12 +64,20 @@ public class UserService {
         return false;
     }
 
-    public List<User> getUser() throws SQLException {
+    public List<User> getUser(String kw) throws SQLException {
         List<User> results = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM user");
-
+            String sql = "SELECT * FROM user ";
+            if (kw != null && !kw.isEmpty()) {
+                sql += " Where id like concat('%', ?, '%')  || ten like concat('%', ?, '%') || email like concat('%', ?, '%')";
+            }
+            PreparedStatement stm = conn.prepareCall(sql);
+            if (kw != null && !kw.isEmpty()) {
+                stm.setString(1, kw);
+                stm.setString(2, kw);
+                stm.setString(3, kw);
+            }
+            ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User e = new User(rs.getInt("id"),
                         rs.getString("username"),
@@ -94,19 +102,18 @@ public class UserService {
 
     public boolean Check(User u) throws SQLException {
         UserService user = new UserService();
-        List<User> users = user.getUser();
+        List<User> users = user.getUser(null);
         for (User user1 : users) {
             if (user1.getUsername().equals(u.getUsername())) {
                 return false;
             }
-
         }
         return true;
     }
 
     public User getU(String username, String password) throws SQLException {
         UserService user = new UserService();
-        List<User> users = user.getUser();
+        List<User> users = user.getUser(null);
         for (User user1 : users) {
             if (user1.getUsername().equals(username) && user1.getPassword().equals(password)) {
                 return user1;
@@ -126,7 +133,7 @@ public class UserService {
     //ĐĂNG NHẬP
     public boolean checkLogin(String username, String password) throws SQLException {
         UserService user = new UserService();
-        List<User> users = user.getUser();
+        List<User> users = user.getUser(null);
         for (User user1 : users) {
             if (user1.getUsername().equals(username) && user1.getPassword().equals(password)) {
                 return true;
@@ -137,7 +144,7 @@ public class UserService {
 
     public boolean checkLoginAdmin(String username, String password) throws SQLException {
         UserService user = new UserService();
-        List<User> users = user.getUser();
+        List<User> users = user.getUser(null);
         for (User user1 : users) {
             if (user1.getUsername().equals(username) && user1.getPassword().equals(password) && user1.getUser_role() == 2) {
                 return true;

@@ -125,7 +125,7 @@ public class QuanLySachController implements Initializable {
         colExport1.setCellValueFactory(new PropertyValueFactory("ngayNhapSach"));
 
         TableColumn colCate = new TableColumn("Thể loại");
-        colCate.setCellValueFactory(new PropertyValueFactory("sach_tl"));
+        colCate.setCellValueFactory(new PropertyValueFactory("tenTl"));
         colCate.setPrefWidth(100);
 
         TableColumn colSta = new TableColumn("Trạng thái");
@@ -161,7 +161,7 @@ public class QuanLySachController implements Initializable {
 
         Date namXB1 = Date.valueOf(this.namXB.getValue());
         Date ngayNhap1 = Date.valueOf(this.ngayNhap.getValue());
-        Sach s = new Sach(Integer.parseInt(this.maSach.getText()), this.tenSach.getText(), this.tacGia.getText(), namXB1, this.moTa.getText(), this.viTri.getText(), ngayNhap1, this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(), "Chưa đặt");
+        Sach s = new Sach(Integer.parseInt(this.maSach.getText()), this.tenSach.getText(), this.tacGia.getText(), namXB1, this.moTa.getText(), this.viTri.getText(), ngayNhap1, this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(), "Chưa đặt","");
         SachService sach = new SachService();
         try {
             if (sach.update(s)) {

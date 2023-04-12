@@ -114,7 +114,7 @@ public class ChiTietLSController implements Initializable {
         colExport1.setCellValueFactory(new PropertyValueFactory("ngayNhapSach"));
 
         TableColumn colCate = new TableColumn("Thể loại");
-        colCate.setCellValueFactory(new PropertyValueFactory("sach_tl"));
+        colCate.setCellValueFactory(new PropertyValueFactory("tenTl"));
         colCate.setPrefWidth(100);
 
         this.tbSach.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription, colPosition, colExport1, colCate);

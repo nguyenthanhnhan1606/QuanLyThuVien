@@ -1,0 +1,4 @@
+--patch-module
+com.ktpm.quanlythuvien=_
+--add-reads
+com.ktpm.quanlythuvien=ALL-UNNAMED

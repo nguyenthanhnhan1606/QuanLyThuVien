@@ -5,8 +5,6 @@
 package com.ktpm.services;
 
 import com.ktpm.pojo.PhieuMuonSach;
-import com.ktpm.pojo.Sach;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

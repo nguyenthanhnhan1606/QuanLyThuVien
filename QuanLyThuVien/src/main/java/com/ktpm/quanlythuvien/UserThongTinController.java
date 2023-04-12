@@ -69,13 +69,15 @@ public class UserThongTinController {
         loadDT();
         LocalDate date = Instant.ofEpochMilli(u.getNgaysinh().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate date1 = Instant.ofEpochMilli(u.getHanthe().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate futureDate = date1.plusYears(-4);
+        Date t = Date.valueOf(futureDate);
         this.maDocGia.setText(String.valueOf(u.getId()));
         this.ten.setText(u.getTen());
         this.gioitinh.setText(u.getGioitinh());
         this.ngaysinh.setValue(date);
         this.cbdoituong.getSelectionModel().select(u.getUser_doituong()-1);
         this.cbboPhan.getSelectionModel().select(u.getUser_bophan()-1);
-        this.hanthe.setText(date.toString() + " ==>> " + date1.toString());
+        this.hanthe.setText(t.toString() + " ==>> " + date1.toString());
         this.email.setText(u.getEmail());
         this.diachi.setText(u.getDiachi());
         this.sdt.setText(u.getSdt());

@@ -124,7 +124,7 @@ public class TimSachMuonController implements Initializable {
         colExport1.setCellValueFactory(new PropertyValueFactory("ngayNhapSach"));
 
         TableColumn colCate = new TableColumn("Thể loại");
-        colCate.setCellValueFactory(new PropertyValueFactory("sach_tl"));
+        colCate.setCellValueFactory(new PropertyValueFactory("tenTl"));
         colCate.setPrefWidth(100);
 
         this.tbSach.getColumns().addAll(colID, colName, colAuthor, colExport, colDescription, colPosition, colExport1, colCate);
@@ -169,7 +169,7 @@ public class TimSachMuonController implements Initializable {
                         this.viTri.getText(),
                         Date.valueOf(this.ngayNhap.getValue()),
                         this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(),
-                        "Chưa đặt");
+                        "Chưa đặt",tbSach.getSelectionModel().getSelectedItem().getTenTl());
                 if (d.kts1(sac)) {
                     if (data.sa1.size() < 5) {
                         if (data.sa1.add(sac)) {

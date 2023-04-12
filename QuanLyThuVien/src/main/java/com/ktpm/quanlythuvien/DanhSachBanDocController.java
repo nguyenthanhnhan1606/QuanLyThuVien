@@ -90,10 +90,17 @@ public class DanhSachBanDocController implements Initializable {
             loadBP();
             loadDT();
             loadTableColumns();
-            loadTableData();
+            loadTableData(null);
         } catch (SQLException ex) {
             Logger.getLogger(DanhSachBanDocController.class.getName()).log(Level.SEVERE, null, ex);
         }
+         this.search.textProperty().addListener(e -> {
+            try {
+                this.loadTableData(this.search.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     private void loadTableColumns() {
@@ -136,8 +143,8 @@ public class DanhSachBanDocController implements Initializable {
         this.tbUser.getColumns().addAll(colID, colName, colGt, colp, colDt, colBp, colExport1, col1, col2, col3);
     }
 
-    private void loadTableData() throws SQLException {
-        List<User> u = user.getUser();
+    private void loadTableData(String kw) throws SQLException {
+        List<User> u = user.getUser(kw);
         this.tbUser.setItems(FXCollections.observableList(u));
 
     }
@@ -188,7 +195,7 @@ public class DanhSachBanDocController implements Initializable {
         } else {
             try {
                 if (user.update(u)) {
-                    loadTableData();
+                    loadTableData(null);
                     MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại sách thành công!!!", Alert.AlertType.INFORMATION).show();
 
                 }
@@ -210,7 +217,7 @@ public class DanhSachBanDocController implements Initializable {
                 try {
                     if (user.deleteUser(u.getId())) {
                         MessageBox.getBox("Question", "Delete successful", Alert.AlertType.INFORMATION).show();
-                        this.loadTableData();
+                        this.loadTableData(null);
                     } else {
                         MessageBox.getBox("Question", "Delete failed", Alert.AlertType.WARNING).show();
                     }

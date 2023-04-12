@@ -22,7 +22,7 @@ public class SachService {
     public List<Sach> getAllSach(String kw) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM sach s join theloaisach t on s.sach_tl=t.maTLS ";
+            String sql = "SELECT s.*,t.tenTL FROM sach s join theloaisach t on s.sach_tl=t.maTLS ";
             if (kw != null && !kw.isEmpty()) {
                 sql += " Where tenSach like concat('%', ?, '%') || tenTacGia like concat('%', ?, '%') || Year(namXB) like concat('%', ?, '%') || t.tenTL like concat('%', ?, '%')";
             }
@@ -35,7 +35,7 @@ public class SachService {
             }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"));
+                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"),rs.getString("tenTL"));
                 s.add(sa);
             }
         }
@@ -45,7 +45,7 @@ public class SachService {
     public List<Sach> getSachs(String kw) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM sach s join theloaisach t on s.sach_tl=t.maTLS Where trangthai=N'Chưa đặt'";
+            String sql = "SELECT s.*,t.tenTL FROM sach s join theloaisach t on s.sach_tl=t.maTLS Where trangthai=N'Chưa đặt'";
             if (kw != null && !kw.isEmpty()) {
                 sql += " && tenSach like concat('%', ?, '%')  || tenTacGia like concat('%', ?, '%') && trangthai=N'Chưa đặt' || Year(namXB) like concat('%', ?, '%') && trangthai=N'Chưa đặt' || t.tenTL like concat('%', ?, '%')&& trangthai=N'Chưa đặt'";
             }
@@ -58,7 +58,7 @@ public class SachService {
             }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"));
+                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"),rs.getString("tenTL"));
                 s.add(sa);
             }
         }
@@ -133,13 +133,13 @@ public class SachService {
     public List<Sach> getSachOnPM(int idpm) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "select s.* from phieumuonsach p join chitietpm c on c.id_Pm=? join sach s on c.id_sach=s.maSach group by s.maSach ";
+            String sql = "select s.*,t.tenTL from theloaisach t join sach s on t.maTLS=s.sach_tl join chitietpm c on s.maSach=c.id_sach where c.id_PM = ? ";
 
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, idpm);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"));
+                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"),rs.getString("tenTL"));
                 s.add(sa);
             }
         }
@@ -149,12 +149,12 @@ public class SachService {
     public List<Sach> getSachOnPMHuy(int idpm) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "select s.* from phieumuonsach p join chitietpm c on c.id_Pm=? join sach s on c.id_sach=s.maSach Where p.trangthai=N'Đã hủy' ";
+            String sql = "select s.*,t.tenTL from sach s join chitietpm c on s.maSach=c.id_sach where c.id_PM = (select id from phieumuonsach where  trangthai=N'Đã hủy' && id=?) ";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, idpm);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"));
+                Sach sa = new Sach(rs.getInt("maSach"), rs.getString("tenSach"), rs.getString("tenTacGia"), rs.getDate("namXB"), rs.getString("moTa"), rs.getString("viTri"), rs.getDate("ngayNhapSach"), rs.getInt("sach_tl"), rs.getString("trangthai"),rs.getString("tenTL"));
                 s.add(sa);
             }
         }

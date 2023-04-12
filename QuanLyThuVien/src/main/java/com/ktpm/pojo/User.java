@@ -4,9 +4,9 @@
  */
 package com.ktpm.pojo;
 
-
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -27,48 +27,44 @@ public class User {
     private int user_bophan;
     private int user_doituong;
     private int user_role;
-    
-    long date=System.currentTimeMillis();
-    
+
+    long date = System.currentTimeMillis();
+
     public User(String username, String password, String ten, String gioitinh, Date ngaysinh, String email, String diachi,
-            String sdt, int user_bophan, int user_doituong) throws NoSuchAlgorithmException 
-    {
-        Date t= new Date(date);
-        int m = t.getYear();
-        t.setYear(m+4);
-        
-        this.username=username;
-        this.password=password;
-        this.ten=ten;
-        this.gioitinh=gioitinh;
-        this.ngaysinh=ngaysinh;
-        this.hanthe=t;
-        this.email=email;
-        this.diachi=diachi;
-        this.sdt=sdt;
-        this.user_bophan=user_bophan;
-        this.user_doituong=user_doituong;
-        this.user_role=1;
-        
+            String sdt, int user_bophan, int user_doituong) throws NoSuchAlgorithmException {
+        LocalDate futureDate = LocalDate.now().plusYears(4);
+        Date t = Date.valueOf(futureDate);
+        this.username = username;
+        this.password = password;
+        this.ten = ten;
+        this.gioitinh = gioitinh;
+        this.ngaysinh = ngaysinh;
+        this.hanthe = t;
+        this.email = email;
+        this.diachi = diachi;
+        this.sdt = sdt;
+        this.user_bophan = user_bophan;
+        this.user_doituong = user_doituong;
+        this.user_role = 1;
+
     }
-    
-        public User(int id,String username, String password, String ten, String gioitinh,Date hanthe, Date ngaysinh, String email, String diachi,
-            String sdt, int user_bophan, int user_doituong,int user_role) throws NoSuchAlgorithmException 
-    {
-        this.id=id;
-        this.username=username;
-        this.password=password;
-        this.ten=ten;
-        this.gioitinh=gioitinh;
-        this.ngaysinh=ngaysinh;
-        this.hanthe=hanthe;
-        this.email=email;
-        this.diachi=diachi;
-        this.sdt=sdt;
-        this.user_bophan=user_bophan;
-        this.user_doituong=user_doituong;
-        this.user_role=user_role;
-        
+
+    public User(int id, String username, String password, String ten, String gioitinh, Date hanthe, Date ngaysinh, String email, String diachi,
+            String sdt, int user_bophan, int user_doituong, int user_role) throws NoSuchAlgorithmException {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.ten = ten;
+        this.gioitinh = gioitinh;
+        this.ngaysinh = ngaysinh;
+        this.hanthe = hanthe;
+        this.email = email;
+        this.diachi = diachi;
+        this.sdt = sdt;
+        this.user_bophan = user_bophan;
+        this.user_doituong = user_doituong;
+        this.user_role = user_role;
+
     }
 
     public User(int aInt, String string) {
@@ -81,7 +77,7 @@ public class User {
     public int getId() {
         return id;
     }
-    
+
     /**
      * @param id the id to set
      */
@@ -256,6 +252,5 @@ public class User {
     public void setUser_role(int user_role) {
         this.user_role = user_role;
     }
-
 
 }

@@ -22,6 +22,7 @@ public class Sach {
     private Date ngayNhapSach;
     private int sach_tl;
     private String trangthai;
+    private String tenTl;
     
     public Sach(String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl,String trangthai)
     {
@@ -35,7 +36,7 @@ public class Sach {
         this.trangthai=trangthai;
     }
     
-    public Sach(int maSach,String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl,String trangthai)
+    public Sach(int maSach,String tenSach, String tenTacGia, Date namXB, String moTa, String viTri,Date ngayns ,int sach_tl,String trangthai,String tenTL)
     {
         this.maSach=maSach;
         this.tenSach=tenSach;
@@ -46,6 +47,7 @@ public class Sach {
         this.ngayNhapSach=ngayns;
         this.sach_tl=sach_tl;
         this.trangthai=trangthai;
+        this.tenTl=tenTL;
     }
     
 
@@ -173,6 +175,20 @@ public class Sach {
      */
     public void setTrangthai(String trangthai) {
         this.trangthai = trangthai;
+    }
+
+    /**
+     * @return the tenTl
+     */
+    public String getTenTl() {
+        return tenTl;
+    }
+
+    /**
+     * @param tenTl the tenTl to set
+     */
+    public void setTenTl(String tenTl) {
+        this.tenTl = tenTl;
     }
     
 
