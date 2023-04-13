@@ -119,11 +119,11 @@ public class DanhSachBanDocController implements Initializable {
         colp.setCellValueFactory(new PropertyValueFactory("ngaysinh"));
 
         TableColumn colDt = new TableColumn("Đối tượng");
-        colDt.setCellValueFactory(new PropertyValueFactory("user_doituong"));
+        colDt.setCellValueFactory(new PropertyValueFactory("loaiDT"));
         colDt.setPrefWidth(200);
 
         TableColumn colBp = new TableColumn("Bộ phận");
-        colBp.setCellValueFactory(new PropertyValueFactory("user_bophan"));
+        colBp.setCellValueFactory(new PropertyValueFactory("tenBP"));
 
         TableColumn colExport1 = new TableColumn("Hạn thẻ");
         colExport1.setCellValueFactory(new PropertyValueFactory("hanthe"));
@@ -189,7 +189,7 @@ public class DanhSachBanDocController implements Initializable {
 
         Date date1 = Date.valueOf(this.ngaysinh.getValue());
         Date date2 = Date.valueOf(this.hanthe.getValue());
-        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioiTinh.getText(), date2, date1, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoiTuong.getSelectionModel().getSelectedItem().getMaDT(), 1);
+        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioiTinh.getText(), date2, date1, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoiTuong.getSelectionModel().getSelectedItem().getMaDT(), 1,"","");
         if (user.checkUpdate(u)) {
             MessageBox.getBox("Thông báo", "Không được để trống ô nào!!!", Alert.AlertType.ERROR).show();
         } else {

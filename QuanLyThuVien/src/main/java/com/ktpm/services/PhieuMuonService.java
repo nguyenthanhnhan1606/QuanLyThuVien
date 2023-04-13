@@ -62,7 +62,8 @@ public class PhieuMuonService {
         }
         return pms;
     }
- public PhieuMuonSach getPMTT(int nam, int thang, int ngay, int id_user1) throws SQLException {
+
+    public PhieuMuonSach getPMTT(int nam, int thang, int ngay, int id_user1) throws SQLException {
         PhieuMuonSach pms = null;
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM phieumuonsach where Year(ngaymuon)= ? && month(ngaymuon) = ? && day(ngaymuon)= ? && id_user= ? && trangthai=N'Đang mượn sách'";
@@ -200,8 +201,8 @@ public class PhieuMuonService {
             return r > 0;
         }
     }
-    
-        public boolean updateTrangThaiPMDT(int id) throws SQLException {
+
+    public boolean updateTrangThaiPMDT(int id) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "Update phieumuonsach set trangthai=N'Đã trả' Where id=?";
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -209,5 +210,67 @@ public class PhieuMuonService {
             int r = stm.executeUpdate();
             return r > 0;
         }
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachQ1(int nam) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM phieumuonsach where quarter(ngaymuon)=1 && (trangthai=N'Đã trả' || trangthai=N'Đang mượn sách') && Year(ngaymuon)=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachQ2(int nam) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM phieumuonsach where quarter(ngaymuon)=2 && (trangthai=N'Đã trả' || trangthai=N'Đang mượn sách') && year(ngaymuon)=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, nam);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachQ3(int nam) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM phieumuonsach where quarter(ngaymuon)=3 && (trangthai=N'Đã trả' || trangthai=N'Đang mượn sách') && year(ngaymuon)=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, nam);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
+    }
+
+    public List<PhieuMuonSach> getPhieuMuonSachQ4(int nam) throws SQLException {
+        List<PhieuMuonSach> pm = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM phieumuonsach where quarter(ngaymuon)=4 && (trangthai=N'Đã trả' || trangthai=N'Đang mượn sách') && year(ngaymuon)=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, nam);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
+                pm.add(pms);
+            }
+        }
+        return pm;
     }
 }

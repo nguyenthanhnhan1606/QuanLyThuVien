@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,9 +66,9 @@ public class UserService {
     public List<User> getUser(String kw) throws SQLException {
         List<User> results = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM user ";
+            String sql = "SELECT u.*, b.tenBP,d.loaiDT FROM bophan b join user u on b.maBP=u.user_bophan join doituong d on u.user_doituong=d.maDT";
             if (kw != null && !kw.isEmpty()) {
-                sql += " Where id like concat('%', ?, '%')  || ten like concat('%', ?, '%') || email like concat('%', ?, '%')";
+                sql += " Where u.id like concat('%', ?, '%')  || u.ten like concat('%', ?, '%') || u.email like concat('%', ?, '%')";
             }
             PreparedStatement stm = conn.prepareCall(sql);
             if (kw != null && !kw.isEmpty()) {
@@ -91,7 +90,9 @@ public class UserService {
                         rs.getString("sdt"),
                         rs.getInt("user_bophan"),
                         rs.getInt("user_doituong"),
-                        rs.getInt("user_role"));
+                        rs.getInt("user_role"),
+                        rs.getString("tenBP"),
+                        rs.getString("loaiDT"));
                 results.add(e);
             }
         } catch (NoSuchAlgorithmException ex) {

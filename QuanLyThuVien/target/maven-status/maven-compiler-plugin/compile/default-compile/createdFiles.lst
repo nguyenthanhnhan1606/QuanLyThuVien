@@ -3,6 +3,7 @@ com\ktpm\services\PhieuMuonService.class
 com\ktpm\quanlythuvien\UserThongTinController.class
 com\ktpm\quanlythuvien\UserCtpmController.class
 com\ktpm\services\BoPhanService.class
+com\ktpm\quanlythuvien\BaoCaoTKController.class
 com\ktpm\quanlythuvien\UserLichSuController.class
 com\ktpm\quanlythuvien\TimSachMuonController.class
 com\ktpm\quanlythuvien\QuanLyMuonSachController.class

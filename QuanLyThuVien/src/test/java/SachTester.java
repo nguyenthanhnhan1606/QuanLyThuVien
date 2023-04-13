@@ -100,7 +100,7 @@ public class SachTester {
                 "tầng 1",
                 t,
                 1,
-                "Chưa đặt");
+                "Chưa đặt","");
         boolean actual = sach.update(sa);
         Assertions.assertTrue(actual);
     }
@@ -115,7 +115,7 @@ public class SachTester {
     @Test
     public void testUpdateTTCu() throws SQLException {
         sach = new SachService();
-        boolean actual = sach.updateTtCu(25);
+        boolean actual = sach.updateTtCu(27);
         Assertions.assertTrue(actual);
     }
 

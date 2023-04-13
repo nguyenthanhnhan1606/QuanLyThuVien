@@ -84,7 +84,7 @@ public class UserThongTinController {
     }
 
     public void update(ActionEvent evt) throws SQLException, NoSuchAlgorithmException {
-        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioitinh.getText(), us.getHanthe(), Date.valueOf(this.ngaysinh.getValue()), this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbboPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbdoituong.getSelectionModel().getSelectedItem().getMaDT(), 1);
+        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioitinh.getText(), us.getHanthe(), Date.valueOf(this.ngaysinh.getValue()), this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbboPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbdoituong.getSelectionModel().getSelectedItem().getMaDT(), 1,"","");
         if (user.checkUpdate(u)) {
             MessageBox.getBox("Thông báo", "Không được để trống ô nào!!!", Alert.AlertType.ERROR).show();
         } else {

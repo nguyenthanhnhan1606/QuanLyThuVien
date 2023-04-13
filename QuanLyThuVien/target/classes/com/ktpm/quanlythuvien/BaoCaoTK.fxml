@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.BaoCaoTKController">
+   <children>
+      <HBox prefHeight="58.0" prefWidth="600.0" style="-fx-background-color: LIGHTGRAY;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="602.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" />
+                  <Label prefHeight="18.0" prefWidth="79.0" text="Chọn năm" />
+                  <DatePicker fx:id="namTK" prefHeight="26.0" prefWidth="238.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="124.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#setYear" prefHeight="26.0" prefWidth="102.0" text="Tìm" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <BarChart fx:id="barBC" prefHeight="361.0" prefWidth="882.0" style="-fx-background-color: #F1F1F2;" title="Báo cáo mượn trả từng quý">
+        <xAxis>
+          <CategoryAxis label="Quý" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="Số lượng" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</VBox>

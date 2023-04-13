@@ -149,7 +149,7 @@ public class SachService {
     public List<Sach> getSachOnPMHuy(int idpm) throws SQLException {
         List<Sach> s = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "select s.*,t.tenTL from sach s join chitietpm c on s.maSach=c.id_sach where c.id_PM = (select id from phieumuonsach where  trangthai=N'Đã hủy' && id=?) ";
+            String sql = "select s.*, t.tenTL from theloaisach t join sach s on t.maTLS=s.sach_tl join chitietpm c on s.maSach=c.id_sach where c.id_PM = (select id from phieumuonsach where  trangthai=N'Đã hủy' && id=?) ";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, idpm);
             ResultSet rs = stm.executeQuery();

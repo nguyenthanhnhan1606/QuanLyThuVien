@@ -193,7 +193,7 @@ public class UserTester {
     public void testUpdate() throws SQLException, NoSuchAlgorithmException {
         Date t = Date.valueOf(LocalDate.now());
         user = new UserService();
-        User u = new User(28, "testnew", "Admin@123", "Nguyễn Văn D", "Nam", t, t, "bcd@gmail.com", "akjdan", "adas", 1, 1, 1);
+        User u = new User(28, "testnew", "Admin@123", "Nguyễn Văn D", "Nam", t, t, "bcd@gmail.com", "akjdan", "adas", 1, 1, 1,"","");
         boolean actual = user.update(u);
         Assertions.assertTrue(actual);
     }

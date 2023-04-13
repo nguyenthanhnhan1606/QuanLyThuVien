@@ -27,8 +27,8 @@ public class User {
     private int user_bophan;
     private int user_doituong;
     private int user_role;
-
-    long date = System.currentTimeMillis();
+    private String tenBP;
+    private String loaiDT;
 
     public User(String username, String password, String ten, String gioitinh, Date ngaysinh, String email, String diachi,
             String sdt, int user_bophan, int user_doituong) throws NoSuchAlgorithmException {
@@ -50,7 +50,7 @@ public class User {
     }
 
     public User(int id, String username, String password, String ten, String gioitinh, Date hanthe, Date ngaysinh, String email, String diachi,
-            String sdt, int user_bophan, int user_doituong, int user_role) throws NoSuchAlgorithmException {
+            String sdt, int user_bophan, int user_doituong, int user_role,String tenBP, String loaiDT) throws NoSuchAlgorithmException {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -64,6 +64,8 @@ public class User {
         this.user_bophan = user_bophan;
         this.user_doituong = user_doituong;
         this.user_role = user_role;
+        this.tenBP=tenBP;
+        this.loaiDT=loaiDT;
 
     }
 
@@ -251,6 +253,34 @@ public class User {
      */
     public void setUser_role(int user_role) {
         this.user_role = user_role;
+    }
+
+    /**
+     * @return the tenBP
+     */
+    public String getTenBP() {
+        return tenBP;
+    }
+
+    /**
+     * @param tenBP the tenBP to set
+     */
+    public void setTenBP(String tenBP) {
+        this.tenBP = tenBP;
+    }
+
+    /**
+     * @return the loaiDT
+     */
+    public String getLoaiDT() {
+        return loaiDT;
+    }
+
+    /**
+     * @param loaiDT the loaiDT to set
+     */
+    public void setLoaiDT(String loaiDT) {
+        this.loaiDT = loaiDT;
     }
 
 }
