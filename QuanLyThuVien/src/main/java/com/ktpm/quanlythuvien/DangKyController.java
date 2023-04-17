@@ -18,8 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,15 +31,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import static javafx.scene.control.ButtonType.OK;
-import static javafx.scene.control.ButtonType.YES;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -141,16 +136,16 @@ public class DangKyController implements Initializable {
                                 Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         } else {
-                            MessageBox.getBox("Thông báo", "Mật khẩu không được ít hơn 6 kí tự và nhiều hơn 45 và phải có chữ hoa, chữ thường và kí tự", Alert.AlertType.INFORMATION).show();
+                            MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
                         }
                     } else {
-                        MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
+                        MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
                     }
                 } else {
-                    MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
+                    MessageBox.getBox("Thông báo", "Mật khẩu không được ít hơn 6 kí tự và nhiều hơn 45 và phải có chữ hoa, chữ thường và kí tự", Alert.AlertType.INFORMATION).show();
                 }
             } else {
-                MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
+                MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
             }
         }
     }

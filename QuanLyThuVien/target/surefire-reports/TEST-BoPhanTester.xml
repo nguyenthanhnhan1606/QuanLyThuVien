@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="21" failures="2" name="UserTester" time="0.794" errors="0" skipped="0">
+<testsuite tests="4" failures="3" name="BoPhanTester" time="1.056" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="19.0.2+7-44"/>
@@ -15,7 +15,7 @@
     <property name="user.script" value=""/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
-    <property name="test" value="UserTester"/>
+    <property name="test" value="BoPhanTester"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien"/>
     <property name="java.vm.compressedOopsMode" value="32-bit"/>
@@ -48,7 +48,7 @@
     <property name="java.class.path" value="C:\Program Files\NetBeans-16\netbeans\java\maven\boot\plexus-classworlds-2.6.0.jar"/>
     <property name="java.vm.specification.version" value="19"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=UserTester -Dmaven.ext.class.path=C:\Program Files\NetBeans-16\netbeans\java\maven-nblib\netbeans-eventspy.jar surefire:test"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -Dtest=BoPhanTester -Dmaven.ext.class.path=C:\Program Files\NetBeans-16\netbeans\java\maven-nblib\netbeans-eventspy.jar surefire:test"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-19"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -65,28 +65,19 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="UserTester" name="UserTester.testisEmty" time="0.008"/>
-  <testcase classname="UserTester" name="UserTester.testAddF2" time="0.015"/>
-  <testcase classname="UserTester" name="UserTester.testEmty" time="0"/>
-  <testcase classname="UserTester" name="UserTester.testSearch" time="0.491">
-    <failure message="expected: &lt;2&gt; but was: &lt;3&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;2&gt; but was: &lt;3&gt;
+  <testcase classname="BoPhanTester" name="BoPhanTester.testGetBoPhan_0args" time="0.892"/>
+  <testcase classname="BoPhanTester" name="BoPhanTester.testGetBoPhan_String" time="0.079">
+    <failure message="expected: &lt;1&gt; but was: &lt;0&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;1&gt; but was: &lt;0&gt;
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:528)
-	at UserTester.testSearch(UserTester.java:53)
+	at BoPhanTester.testGetBoPhan_String(BoPhanTester.java:29)
 </failure>
   </testcase>
-  <testcase classname="UserTester" name="UserTester.testAddT" time="0.055"/>
-  <testcase classname="UserTester" name="UserTester.testAddF" time="0.025"/>
-  <testcase classname="UserTester" name="UserTester.testAddF1" time="0.015"/>
-  <testcase classname="UserTester" name="UserTester.testLoginAdmin" time="0.028"/>
-  <testcase classname="UserTester" name="UserTester.testUpdateF" time="0"/>
-  <testcase classname="UserTester" name="UserTester.testLoginF" time="0.012"/>
-  <testcase classname="UserTester" name="UserTester.testGetUserF" time="0.026"/>
-  <testcase classname="UserTester" name="UserTester.testDel" time="0.014">
+  <testcase classname="BoPhanTester" name="BoPhanTester.testUpdate" time="0.043">
     <failure message="expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -94,16 +85,18 @@
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
 	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
 	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:180)
-	at UserTester.testDel(UserTester.java:216)
+	at BoPhanTester.testUpdate(BoPhanTester.java:46)
 </failure>
   </testcase>
-  <testcase classname="UserTester" name="UserTester.testPassKm" time="0"/>
-  <testcase classname="UserTester" name="UserTester.testGetUser" time="0.016"/>
-  <testcase classname="UserTester" name="UserTester.testUsernameF" time="0.013"/>
-  <testcase classname="UserTester" name="UserTester.testUsername" time="0.01"/>
-  <testcase classname="UserTester" name="UserTester.testLoginAdminF" time="0.021"/>
-  <testcase classname="UserTester" name="UserTester.testUpdate" time="0.02"/>
-  <testcase classname="UserTester" name="UserTester.testPass" time="0"/>
-  <testcase classname="UserTester" name="UserTester.testLogin" time="0.012"/>
-  <testcase classname="UserTester" name="UserTester.testDelF" time="0.013"/>
+  <testcase classname="BoPhanTester" name="BoPhanTester.testDelete" time="0.042">
+    <failure message="expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:180)
+	at BoPhanTester.testDelete(BoPhanTester.java:54)
+</failure>
+  </testcase>
 </testsuite>

@@ -19,22 +19,23 @@ import java.util.List;
  * @author THANH NHAN
  */
 public class BoPhanService {
-    public List<BoPhan> getBoPhan() throws SQLException{
+
+    public List<BoPhan> getBoPhan() throws SQLException {
         List<BoPhan> results = new ArrayList<>();
-        try (Connection conn = JdbcUtils.getConn()){
+        try (Connection conn = JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM bophan");
-            
-            while (rs.next()){
-                BoPhan bp = new BoPhan(rs.getInt("maBP"),rs.getString("tenBP"));
+
+            while (rs.next()) {
+                BoPhan bp = new BoPhan(rs.getInt("maBP"), rs.getString("tenBP"));
                 results.add(bp);
             }
-            
+
         }
         return results;
     }
-    
-     public List<BoPhan> getBoPhan(String kw) throws SQLException {
+
+    public List<BoPhan> getBoPhan(String kw) throws SQLException {
         List<BoPhan> bophan = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM bophan ";
@@ -55,23 +56,27 @@ public class BoPhanService {
     }
 
     public boolean addBoPhan(BoPhan b) throws SQLException {
-        try (Connection conn = JdbcUtils.getConn()) {
-            conn.setAutoCommit(false);
-            String sql = "INSERT INTO bophan(tenBP) VALUES(?)"; // SQL injection
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, b.getTenBP());
-            stm.execute();
-            try {
-                conn.commit();
-                return true;
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return false;
+        BoPhanService bp = new BoPhanService();
+        if (bp.Check(b.getTenBP())) {
+            try (Connection conn = JdbcUtils.getConn()) {
+                conn.setAutoCommit(false);
+                String sql = "INSERT INTO bophan(tenBP) VALUES(?)"; // SQL injection
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, b.getTenBP());
+                stm.execute();
+                try {
+                    conn.commit();
+                    return true;
+                } catch (SQLException ex) {
+                    System.err.println(ex.getMessage());
+                    return false;
+                }
             }
         }
+        return false;
     }
-    
-     public boolean update(BoPhan b) throws SQLException {
+
+    public boolean update(BoPhan b) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "Update bophan set tenBP=? Where maBP=?";
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -81,13 +86,24 @@ public class BoPhanService {
             return r > 0;
         }
     }
-     
-     public boolean delete(int maBP) throws SQLException {
+
+    public boolean delete(int maBP) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "DELETE FROM bophan WHERE maBP=?";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, maBP);
             return stm.executeUpdate() > 0;
         }
+    }
+
+    public boolean Check(String text) throws SQLException {
+        BoPhanService bp = new BoPhanService();
+        List<BoPhan> b = bp.getBoPhan();
+        for (BoPhan b1 : b) {
+            if (b1.getTenBP().toUpperCase().equals(text.toUpperCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

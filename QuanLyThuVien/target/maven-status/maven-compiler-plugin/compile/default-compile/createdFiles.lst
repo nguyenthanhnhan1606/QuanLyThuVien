@@ -2,6 +2,7 @@ com\ktpm\utils\MessageBox.class
 com\ktpm\services\PhieuMuonService.class
 com\ktpm\quanlythuvien\UserThongTinController.class
 com\ktpm\quanlythuvien\UserCtpmController.class
+com\ktpm\quanlythuvien\QuanLyDanhMucController.class
 com\ktpm\services\BoPhanService.class
 com\ktpm\quanlythuvien\BaoCaoTKController.class
 com\ktpm\quanlythuvien\UserLichSuController.class
@@ -12,6 +13,7 @@ com\ktpm\pojo\BoPhan.class
 com\ktpm\services\ChiTietPmService.class
 com\ktpm\services\SachService.class
 com\ktpm\pojo\Sach.class
+com\ktpm\quanlythuvien\QuanLyDoiTuongController.class
 com\ktpm\pojo\ChiTietPM.class
 com\ktpm\quanlythuvien\PrimaryController.class
 com\ktpm\quanlythuvien\UserMuonSachController.class
@@ -19,6 +21,7 @@ com\ktpm\quanlythuvien\AdminController.class
 com\ktpm\services\PasswordService.class
 com\ktpm\pojo\TheLoaiSach.class
 com\ktpm\quanlythuvien\ChiTietTSController.class
+com\ktpm\quanlythuvien\QuanLyBoPhanController.class
 com\ktpm\pojo\data.class
 com\ktpm\quanlythuvien\App.class
 com\ktpm\services\DoiTuongService.class

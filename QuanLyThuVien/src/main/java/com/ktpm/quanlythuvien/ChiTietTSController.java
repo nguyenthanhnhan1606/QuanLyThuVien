@@ -158,7 +158,7 @@ public class ChiTietTSController implements Initializable {
                     }
                 }
                 if (temp) {
-                    MessageBox.getBox("Thông báo", "Đã xác nhận trả sách", Alert.AlertType.INFORMATION).show();
+                    MessageBox.getBox("Thông báo", "Đã xác nhận trả sách\n"+"Số tiền phải trả do trễ "+data2.getSongaytre()+" là: "+5000*data2.getSongaytre()*sa.size()+ " VNĐ", Alert.AlertType.INFORMATION).show();
                     Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyTraSach.fxml"));
                     Parent manageView = loader.load();

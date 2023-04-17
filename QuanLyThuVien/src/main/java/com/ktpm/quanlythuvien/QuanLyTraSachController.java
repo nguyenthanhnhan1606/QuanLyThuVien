@@ -141,7 +141,8 @@ public class QuanLyTraSachController implements Initializable {
                 if (i - j > 0) {
                     this.thoihan.setText("Sớm " + t + " ngày");
                 } else {
-                    this.thoihan.setText("Trễ " + t + " ngày");
+                    data2.setSongaytre(t*(-1));
+                    this.thoihan.setText("Trễ " + t*(-1) + " ngày");
                 }
             } else {
                 this.thoihan.setText(this.trangthai.getText());

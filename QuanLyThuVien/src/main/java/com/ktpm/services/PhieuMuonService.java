@@ -93,7 +93,6 @@ public class PhieuMuonService {
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, id);
             stm.setInt(2, id);
-
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 PhieuMuonSach pm = new PhieuMuonSach(rs.getInt("id"),
@@ -274,21 +273,6 @@ public class PhieuMuonService {
         return pm;
     }
     
-    ///đang test đễ fix
-    public List<PhieuMuonSach> get1PhieuMuon(int idpm) throws SQLException {
-        List<PhieuMuonSach> pm = new ArrayList<>();
-        try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM phieumuonsach where id=?";
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setInt(1, idpm);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                PhieuMuonSach pms = new PhieuMuonSach(rs.getInt("id"), rs.getDate("ngaymuon"), rs.getDate("hantra"), rs.getInt("id_user"), rs.getInt("soluong"), rs.getString("trangthai"));
-                pm.add(pms);
-            }
-        }
-        return pm;
-    }
     
     
 }

@@ -53,23 +53,27 @@ public class TheLoaiService {
     }
 
     public boolean addTheLoaiSach(TheLoaiSach tl) throws SQLException {
-        try (Connection conn = JdbcUtils.getConn()) {
-            conn.setAutoCommit(false);
-            String sql = "INSERT INTO theloaisach(tenTL) VALUES(?)"; // SQL injection
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, tl.getTenTL());
-            stm.execute();
-            try {
-                conn.commit();
-                return true;
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return false;
+        TheLoaiService tls = new TheLoaiService();
+        if (tls.Check(tl.getTenTL())) {
+            try (Connection conn = JdbcUtils.getConn()) {
+                conn.setAutoCommit(false);
+                String sql = "INSERT INTO theloaisach(tenTL) VALUES(?)"; // SQL injection
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, tl.getTenTL());
+                stm.execute();
+                try {
+                    conn.commit();
+                    return true;
+                } catch (SQLException ex) {
+                    System.err.println(ex.getMessage());
+                    return false;
+                }
             }
         }
+        return false;
     }
-    
-     public boolean update(TheLoaiSach tl) throws SQLException {
+
+    public boolean update(TheLoaiSach tl) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "Update theloaisach set tenTL=? Where maTLS=?";
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -79,13 +83,24 @@ public class TheLoaiService {
             return r > 0;
         }
     }
-     
-     public boolean delete(int maTLS) throws SQLException {
+
+    public boolean delete(int maTLS) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "DELETE FROM theloaisach WHERE maTLS=?";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, maTLS);
             return stm.executeUpdate() > 0;
         }
+    }
+
+    public boolean Check(String text) throws SQLException {
+        TheLoaiService tl = new TheLoaiService();
+        List<TheLoaiSach> tls = tl.getTheLoai();
+        for (TheLoaiSach tls1 : tls) {
+            if (tls1.getTenTL().toUpperCase().equals(text.toUpperCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

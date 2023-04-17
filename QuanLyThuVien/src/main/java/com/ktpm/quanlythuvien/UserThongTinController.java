@@ -9,6 +9,7 @@ import com.ktpm.pojo.DoiTuong;
 import com.ktpm.pojo.User;
 import com.ktpm.services.BoPhanService;
 import com.ktpm.services.DoiTuongService;
+import com.ktpm.services.PasswordService;
 import com.ktpm.services.UserService;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
@@ -38,10 +39,10 @@ import javafx.stage.Stage;
  * @author Admin
  */
 public class UserThongTinController {
+
     private User us;
     UserService user = new UserService();
-    
-    
+
     @FXML
     TextField maDocGia;
     @FXML
@@ -62,7 +63,7 @@ public class UserThongTinController {
     TextField diachi;
     @FXML
     TextField sdt;
-    
+
     public void setUser(User u) {
         this.us = u;
         loadBP();
@@ -75,8 +76,8 @@ public class UserThongTinController {
         this.ten.setText(u.getTen());
         this.gioitinh.setText(u.getGioitinh());
         this.ngaysinh.setValue(date);
-        this.cbdoituong.getSelectionModel().select(u.getUser_doituong()-1);
-        this.cbboPhan.getSelectionModel().select(u.getUser_bophan()-1);
+        this.cbdoituong.getSelectionModel().select(u.getUser_doituong() - 1);
+        this.cbboPhan.getSelectionModel().select(u.getUser_bophan() - 1);
         this.hanthe.setText(t.toString() + " ==>> " + date1.toString());
         this.email.setText(u.getEmail());
         this.diachi.setText(u.getDiachi());
@@ -84,19 +85,30 @@ public class UserThongTinController {
     }
 
     public void update(ActionEvent evt) throws SQLException, NoSuchAlgorithmException {
-        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioitinh.getText(), us.getHanthe(), Date.valueOf(this.ngaysinh.getValue()), this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbboPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbdoituong.getSelectionModel().getSelectedItem().getMaDT(), 1,"","");
+        PasswordService p = new PasswordService("email");
+        PasswordService p1 = new PasswordService(1);
+        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioitinh.getText(), us.getHanthe(), Date.valueOf(this.ngaysinh.getValue()), this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbboPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbdoituong.getSelectionModel().getSelectedItem().getMaDT(), 1, "", "");
         if (user.checkUpdate(u)) {
             MessageBox.getBox("Thông báo", "Không được để trống ô nào!!!", Alert.AlertType.ERROR).show();
         } else {
-            try {
-                if (user.update(u)) {
-                    MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại sách thành công!!!", Alert.AlertType.INFORMATION).show();
+            if (p.checkEmail(this.email.getText())) {
+                if (p1.checkSdt(this.sdt.getText()) || this.sdt.getText().isEmpty()) {
+                    try {
+                        if (user.update(u)) {
+                            MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại thông tin thành công!!!", Alert.AlertType.INFORMATION).show();
 
+                        }
+                    } catch (SQLException ex) {
+                        MessageBox.getBox("Thông báo", "Cập nhật lại thông tin thất bại!!!", Alert.AlertType.ERROR).show();
+                        Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
                 }
-            } catch (SQLException ex) {
-                MessageBox.getBox("Thông báo", "Cập nhật lại sách thất bại!!!", Alert.AlertType.ERROR).show();
-                Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
             }
+
         }
     }
 
@@ -111,7 +123,7 @@ public class UserThongTinController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void doiMatKhau(ActionEvent evt) throws IOException, SQLException {
         User ur = user.getU(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
@@ -123,7 +135,7 @@ public class UserThongTinController {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void loadBP() {
         BoPhanService b = new BoPhanService();
         try {

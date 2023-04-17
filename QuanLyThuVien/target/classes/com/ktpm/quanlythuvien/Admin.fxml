@@ -9,84 +9,88 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="706.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
-   <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="709.0" text="QUẢN LÝ THƯ VIỆN" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="39.0" />
-         </font>
-      </Label>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
-         <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvaIPgjdE4hWWtLvC2kvBg_cJ9u5NmkP1FuYzi0AlTNS-jxcG4j3mFYvueZ_JsQIJtCSc&amp;usqp=CAU" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#quanLySach" text="Quán lý Sách" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="176.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="167.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://icon-library.com/images/borrow-icon/borrow-icon-10.jpg" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#quanLyMuonSach" text="Quản lý mượn sách" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://cdn2.iconfinder.com/data/icons/library-iconset/32/borrow_a_book-512.png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#quanLyTraSach" text="Quản lý trả sách" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="36.0" prefHeight="227.0" prefWidth="600.0" spacing="40.0">
-         <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://thumbs.dreamstime.com/b/book-icon-education-check-sign-approved-confirm-done-tick-completed-symbol-vector-illustration-224026201.jpg" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#xacNhanSach" text="Xác nhận mượn" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://static.thenounproject.com/png/1034785-200.png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#quanLyDG" text="Quản lý Độc giả" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" prefHeight="227.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://static.vecteezy.com/system/resources/thumbnails/000/574/782/small/vector60-5835-01.jpg" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" onAction="#thoat" prefHeight="26.0" prefWidth="107.0" style="-fx-text-fill: white; -fx-background-color: red; -fx-pref-width: 125;" text="Đăng xuất" />
-               </children>
-            </VBox>
-         </children>
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </HBox>
-      <Button mnemonicParsing="false" onAction="#baoCaoTK" prefHeight="26.0" prefWidth="362.0" text="Báo cáo thống kê" />
-   </children>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="706.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="1000.0" text="QUẢN LÝ THƯ VIỆN" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="39.0" />
+            </font>
+        </Label>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvaIPgjdE4hWWtLvC2kvBg_cJ9u5NmkP1FuYzi0AlTNS-jxcG4j3mFYvueZ_JsQIJtCSc&amp;usqp=CAU" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#quanLySach" text="Quán lý Sách" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="176.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="167.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://icon-library.com/images/borrow-icon/borrow-icon-10.jpg" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#quanLyMuonSach" text="Quản lý mượn sách" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://cdn2.iconfinder.com/data/icons/library-iconset/32/borrow_a_book-512.png" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#quanLyTraSach" text="Quản lý trả sách" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="10.0" layoutY="36.0" prefHeight="227.0" prefWidth="600.0" spacing="40.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://thumbs.dreamstime.com/b/book-icon-education-check-sign-approved-confirm-done-tick-completed-symbol-vector-illustration-224026201.jpg" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#xacNhanSach" text="Xác nhận mượn" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://static.thenounproject.com/png/1034785-200.png" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#quanLyDG" text="Quản lý Độc giả" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" layoutX="210.0" layoutY="10.0" prefHeight="227.0" prefWidth="200.0">
+                    <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="https://t3.ftcdn.net/jpg/05/46/46/14/360_F_546461498_eAK0ADH2mE0Y1VNG7wpjIgtXFxT0mR0a.jpg" />
+                            </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#baoCaoTK" prefHeight="26.0" prefWidth="122.0" text="Báo cáo thống kê" />
+                    </children>
+                </VBox>
+            </children>
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+        </HBox>
+        <Button mnemonicParsing="false" onAction="#thoat" prefHeight="35.0" prefWidth="218.0" style="-fx-text-fill: white; -fx-background-color: red; -fx-pref-width: 1000;" text="Đăng xuất">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Button>
+    </children>
 </VBox>

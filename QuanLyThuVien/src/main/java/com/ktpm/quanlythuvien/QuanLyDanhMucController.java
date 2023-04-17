@@ -108,7 +108,7 @@ public class QuanLyDanhMucController implements Initializable {
                 loadTableData(null);
                 MessageBox.getBox("Thông báo", "Thêm thành công!!", Alert.AlertType.INFORMATION).show();
             } else {
-                MessageBox.getBox("Thông báo", "Thêm không thành công!!", Alert.AlertType.ERROR).show();
+                MessageBox.getBox("Thông báo", "Thêm không thành công do đã có danh mục này!!", Alert.AlertType.ERROR).show();
             }
         }
     }

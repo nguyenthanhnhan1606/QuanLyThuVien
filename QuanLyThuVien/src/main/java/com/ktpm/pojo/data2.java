@@ -14,6 +14,7 @@ public class data2 {
     private static int idxns;
     private static int idts;
     private static String trangthaitra;
+    private static int songaytre;
     /**
      * @return the id
      */
@@ -82,5 +83,19 @@ public class data2 {
      */
     public static void setTrangthaitra(String aTrangthaitra) {
         trangthaitra = aTrangthaitra;
+    }
+
+    /**
+     * @return the songaytre
+     */
+    public static int getSongaytre() {
+        return songaytre;
+    }
+
+    /**
+     * @param aSongaytre the songaytre to set
+     */
+    public static void setSongaytre(int aSongaytre) {
+        songaytre = aSongaytre;
     }
 }

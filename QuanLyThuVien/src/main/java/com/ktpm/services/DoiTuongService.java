@@ -19,21 +19,22 @@ import java.util.List;
  * @author THANH NHAN
  */
 public class DoiTuongService {
-    
+
     public List<DoiTuong> getDoiTuong() throws SQLException {
         List<DoiTuong> results = new ArrayList<>();
-        try (Connection conn = JdbcUtils.getConn()){
+        try (Connection conn = JdbcUtils.getConn()) {
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM doituong");
-            
-            while (rs.next()){
-                DoiTuong bp = new DoiTuong(rs.getInt("maDT"),rs.getString("loaiDT"));
+
+            while (rs.next()) {
+                DoiTuong bp = new DoiTuong(rs.getInt("maDT"), rs.getString("loaiDT"));
                 results.add(bp);
             }
-            
+
         }
         return results;
     }
+
     public List<DoiTuong> getDoiTuong(String kw) throws SQLException {
         List<DoiTuong> doituong = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
@@ -55,23 +56,27 @@ public class DoiTuongService {
     }
 
     public boolean addDoiTuong(DoiTuong d) throws SQLException {
-        try (Connection conn = JdbcUtils.getConn()) {
-            conn.setAutoCommit(false);
-            String sql = "INSERT INTO doituong(loaiDT) VALUES(?)"; // SQL injection
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, d.getLoaiDT());
-            stm.execute();
-            try {
-                conn.commit();
-                return true;
-            } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
-                return false;
+        DoiTuongService dt = new DoiTuongService();
+        if (dt.Check(d.getLoaiDT())) {
+            try (Connection conn = JdbcUtils.getConn()) {
+                conn.setAutoCommit(false);
+                String sql = "INSERT INTO doituong(loaiDT) VALUES(?)"; // SQL injection
+                PreparedStatement stm = conn.prepareStatement(sql);
+                stm.setString(1, d.getLoaiDT());
+                stm.execute();
+                try {
+                    conn.commit();
+                    return true;
+                } catch (SQLException ex) {
+                    System.err.println(ex.getMessage());
+                    return false;
+                }
             }
         }
+        return  false;
     }
-    
-     public boolean update(DoiTuong d) throws SQLException {
+
+    public boolean update(DoiTuong d) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "Update doituong set loaiDT=? Where maDT=?";
             PreparedStatement stm = conn.prepareStatement(sql);
@@ -81,13 +86,24 @@ public class DoiTuongService {
             return r > 0;
         }
     }
-     
-     public boolean delete(int maDT) throws SQLException {
+
+    public boolean delete(int maDT) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "DELETE FROM doituong WHERE maDT=?";
             PreparedStatement stm = conn.prepareCall(sql);
             stm.setInt(1, maDT);
             return stm.executeUpdate() > 0;
         }
+    }
+
+    public boolean Check(String text) throws SQLException {
+        DoiTuongService dt = new DoiTuongService();
+        List<DoiTuong> d = dt.getDoiTuong();
+        for (DoiTuong d1 : d) {
+            if (d1.getLoaiDT().toUpperCase().equals(text.toUpperCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
