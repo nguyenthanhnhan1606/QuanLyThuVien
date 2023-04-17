@@ -151,6 +151,11 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="510.0">
                      <children>
+                        <HBox alignment="CENTER" prefHeight="54.0" prefWidth="110.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addSachs" prefHeight="34.0" prefWidth="89.0" text="Thêm Sách" />
+                           </children>
+                        </HBox>
                         <VBox alignment="CENTER" prefHeight="54.0" prefWidth="129.0">
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#update" prefHeight="34.0" prefWidth="89.0" text="Sửa" />
@@ -161,9 +166,9 @@
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="34.0" prefWidth="89.0" text="Xóa" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="65.0" prefWidth="119.0">
+                        <VBox alignment="CENTER" prefHeight="54.0" prefWidth="170.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#addSachs" prefHeight="34.0" prefWidth="89.0" text="Thêm Sách" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#quanLyDanhMuc" prefHeight="34.0" prefWidth="133.0" text="Quản lý danh mục" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="54.0" prefWidth="108.0">

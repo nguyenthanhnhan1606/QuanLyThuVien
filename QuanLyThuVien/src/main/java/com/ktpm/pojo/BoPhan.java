@@ -12,7 +12,10 @@ public class BoPhan {
     private int maBP;
     private String tenBP;
 
-    
+     public BoPhan(String tenBP)
+    {
+        this.tenBP=tenBP;
+    }
     public BoPhan(int maBP,String tenBP)
     {
         this.maBP=maBP;

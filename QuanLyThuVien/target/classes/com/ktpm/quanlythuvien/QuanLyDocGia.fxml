@@ -5,8 +5,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -68,7 +70,16 @@
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="50.0" prefWidth="372.0">
                             <children>
                                 <Label prefHeight="18.0" prefWidth="85.0" text="Giới tính" />
-                                <TextField fx:id="gioiTinh" prefHeight="16.0" prefWidth="206.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="210.0" spacing="30.0">
+                           <children>
+                              <RadioButton fx:id="rd1" mnemonicParsing="false" text="Nam">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="Group1" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="rd2" contentDisplay="CENTER" mnemonicParsing="false" text="Nữ" textAlignment="CENTER" toggleGroup="$Group1" />
+                           </children>
+                        </HBox>
                             </children>
                             <VBox.margin>
                                 <Insets top="10.0" />
@@ -187,13 +198,24 @@
                                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#DangKy" prefHeight="34.0" prefWidth="89.0" text="Thêm" />
                             </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="54.0" prefWidth="108.0">
+                        <VBox alignment="CENTER" prefHeight="54.0" prefWidth="134.0">
                             <children>
-                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#thoatQLDG" prefHeight="36.0" prefWidth="91.0" text="Thoát" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#quanLyDoiTuong" prefHeight="36.0" prefWidth="122.0" text="Quản lý đối tượng" />
                             </children>
                         </VBox>
+                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="122.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#quanLyBoPhan" prefHeight="34.0" prefWidth="120.0" text="Quản lý bộ phận" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="54.0" prefWidth="121.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#thoatQLDG" prefHeight="36.0" prefWidth="91.0" text="Thoát" />
+                     </children>
+                  </VBox>
                     </children>
                 </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
             </children>
         </HBox>
         <HBox prefHeight="0.0" prefWidth="1055.0" />

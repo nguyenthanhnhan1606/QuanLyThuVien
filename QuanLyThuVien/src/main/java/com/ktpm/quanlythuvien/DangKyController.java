@@ -115,13 +115,14 @@ public class DangKyController implements Initializable {
         UserService user = new UserService();
         PasswordService p1 = new PasswordService("test");
         PasswordService p2 = new PasswordService(1);
-        if (p2.checkSdt(this.sdt.getText()) || this.sdt.getText().isEmpty()) {
-            if (p1.checkEmail(this.email.getText())) {
-                if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()) {
-                    MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
-                } else {
-                    if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) {
-                        if (p.check(this.password.getText().trim())) {
+
+        if (this.username.getText().isEmpty() || this.password.getText().isEmpty() || this.cfpassword.getText().isEmpty() || this.email.getText().isEmpty()) {
+            MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
+        } else {
+            if (this.cfpassword.getText().trim().equals(this.password.getText().trim())) {
+                if (p.check(this.password.getText().trim())) {
+                    if (p2.checkSdt(this.sdt.getText()) || this.sdt.getText().isEmpty()) {
+                        if (p1.checkEmail(this.email.getText())) {
                             User u = new User(this.username.getText().trim(), this.password.getText().trim(), this.name.getText(), group1.getSelectedToggle().getUserData().toString(), date, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoituong.getSelectionModel().getSelectedItem().getMaDT());
                             try {
                                 if (user.addUser(u)) {
@@ -145,15 +146,13 @@ public class DangKyController implements Initializable {
                     } else {
                         MessageBox.getBox("Thông báo", "Mật khẩu không khớp", Alert.AlertType.INFORMATION).show();
                     }
-
+                } else {
+                    MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
                 }
             } else {
-                MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
+                MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
             }
-        } else {
-            MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
         }
-
     }
 
     public void thoat(ActionEvent evt) throws IOException {

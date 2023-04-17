@@ -9,6 +9,7 @@ import com.ktpm.pojo.TheLoaiSach;
 import com.ktpm.pojo.User;
 import com.ktpm.pojo.data2;
 import static com.ktpm.quanlythuvien.UserMuonSachController.s;
+import static com.ktpm.quanlythuvien.UserMuonSachController.user;
 import static com.ktpm.quanlythuvien.XacNhanSachController.pm;
 import com.ktpm.services.TheLoaiService;
 import com.ktpm.utils.MessageBox;
@@ -82,7 +83,7 @@ public class ChiTietXNSController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(UserMuonSachController.class.getName()).log(Level.SEVERE, null, ex);
         }
-   
+
     }
 
     private void loadTableColumns() {
@@ -143,7 +144,6 @@ public class ChiTietXNSController implements Initializable {
         this.ngayNhap.setValue(date1);
     }
 
-    
     public void thoat(ActionEvent evt) throws IOException, SQLException {
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyXacNhanMuon.fxml"));
@@ -155,4 +155,3 @@ public class ChiTietXNSController implements Initializable {
         stage.show();
     }
 }
-

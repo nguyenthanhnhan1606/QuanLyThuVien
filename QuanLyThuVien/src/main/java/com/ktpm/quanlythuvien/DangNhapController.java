@@ -74,7 +74,7 @@ public class DangNhapController implements Initializable {
     public void login(ActionEvent evt) throws IOException {
         try {
             if (u.checkLoginAdmin(this.username.getText().trim(), this.password.getText().trim())) {
-                User ur = u.getU(this.username.getText(), this.password.getText());
+                User ur = u.getAD(this.username.getText(), this.password.getText());
                 Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
                 Parent manageView = loader.load();

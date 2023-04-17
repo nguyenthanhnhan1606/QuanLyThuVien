@@ -7,6 +7,7 @@ package com.ktpm.services;
 import com.ktpm.pojo.BoPhan;
 import com.ktpm.services.JdbcUtils;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,5 +32,62 @@ public class BoPhanService {
             
         }
         return results;
+    }
+    
+     public List<BoPhan> getBoPhan(String kw) throws SQLException {
+        List<BoPhan> bophan = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT * FROM bophan ";
+            if (kw != null && !kw.isEmpty()) {
+                sql += " Where tenBP like concat('%', ?, '%')";
+            }
+            PreparedStatement stm = conn.prepareCall(sql);
+            if (kw != null && !kw.isEmpty()) {
+                stm.setString(1, kw);
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                BoPhan dt = new BoPhan(rs.getInt("maBP"), rs.getString("tenBP"));
+                bophan.add(dt);
+            }
+        }
+        return bophan;
+    }
+
+    public boolean addBoPhan(BoPhan b) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            conn.setAutoCommit(false);
+            String sql = "INSERT INTO bophan(tenBP) VALUES(?)"; // SQL injection
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, b.getTenBP());
+            stm.execute();
+            try {
+                conn.commit();
+                return true;
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
+        }
+    }
+    
+     public boolean update(BoPhan b) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "Update bophan set tenBP=? Where maBP=?";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, b.getTenBP());
+            stm.setInt(2, b.getMaBP());
+            int r = stm.executeUpdate();
+            return r > 0;
+        }
+    }
+     
+     public boolean delete(int maBP) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "DELETE FROM bophan WHERE maBP=?";
+            PreparedStatement stm = conn.prepareCall(sql);
+            stm.setInt(1, maBP);
+            return stm.executeUpdate() > 0;
+        }
     }
 }

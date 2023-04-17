@@ -4,6 +4,7 @@
  */
 package com.ktpm.services;
 
+import com.ktpm.pojo.PhieuMuonSach;
 import com.ktpm.pojo.User;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -66,9 +67,9 @@ public class UserService {
     public List<User> getUser(String kw) throws SQLException {
         List<User> results = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT u.*, b.tenBP,d.loaiDT FROM bophan b join user u on b.maBP=u.user_bophan join doituong d on u.user_doituong=d.maDT";
+            String sql = "SELECT u.*, b.tenBP,d.loaiDT FROM bophan b join user u on b.maBP=u.user_bophan join doituong d on u.user_doituong=d.maDT Where u.user_role=1";
             if (kw != null && !kw.isEmpty()) {
-                sql += " Where u.id like concat('%', ?, '%')  || u.ten like concat('%', ?, '%') || u.email like concat('%', ?, '%')";
+                sql += " && (u.id like concat('%', ?, '%')  || u.ten like concat('%', ?, '%') || u.email like concat('%', ?, '%'))";
             }
             PreparedStatement stm = conn.prepareCall(sql);
             if (kw != null && !kw.isEmpty()) {
@@ -76,6 +77,36 @@ public class UserService {
                 stm.setString(2, kw);
                 stm.setString(3, kw);
             }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                User e = new User(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("ten"),
+                        rs.getString("gioitinh"),
+                        rs.getDate("hanthe"),
+                        rs.getDate("ngaysinh"),
+                        rs.getString("email"),
+                        rs.getString("diachi"),
+                        rs.getString("sdt"),
+                        rs.getInt("user_bophan"),
+                        rs.getInt("user_doituong"),
+                        rs.getInt("user_role"),
+                        rs.getString("tenBP"),
+                        rs.getString("loaiDT"));
+                results.add(e);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return results;
+    }
+
+    public List<User> getAdmin() throws SQLException {
+        List<User> results = new ArrayList<>();
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT u.*, b.tenBP,d.loaiDT FROM bophan b join user u on b.maBP=u.user_bophan join doituong d on u.user_doituong=d.maDT Where u.user_role=2";
+            PreparedStatement stm = conn.prepareCall(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 User e = new User(rs.getInt("id"),
@@ -123,6 +154,17 @@ public class UserService {
         return null;
     }
 
+    public User getAD(String username, String password) throws SQLException {
+        UserService user = new UserService();
+        List<User> users = user.getAdmin();
+        for (User user1 : users) {
+            if (user1.getUsername().equals(username) && user1.getPassword().equals(password)) {
+                return user1;
+            }
+        }
+        return null;
+    }
+
     public boolean checkUpdate(User u) throws SQLException {
         return u.getUser_doituong() <= 0 || u.getEmail().isEmpty() || u.getTen().isEmpty() || u.getGioitinh().isEmpty() || u.getHanthe() == null || u.getUser_bophan() <= 0;
     }
@@ -145,7 +187,7 @@ public class UserService {
 
     public boolean checkLoginAdmin(String username, String password) throws SQLException {
         UserService user = new UserService();
-        List<User> users = user.getUser(null);
+        List<User> users = user.getAdmin();
         for (User user1 : users) {
             if (user1.getUsername().equals(username) && user1.getPassword().equals(password) && user1.getUser_role() == 2) {
                 return true;
@@ -205,4 +247,25 @@ public class UserService {
         }
     }
 
+    public boolean checcMaDG(int id) throws SQLException {
+        UserService user = new UserService(); 
+        List<User> users = user.getUser(null);
+        for (User user1 : users) {
+            if (user1.getId()==id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+     public boolean checkDel(int id) throws SQLException {
+        PhieuMuonService pm = new PhieuMuonService();
+        List<PhieuMuonSach> results = pm.getPhieuMuonSach();
+         for (PhieuMuonSach result : results) {
+             if(result.getId_user()==id && result.getTrangthai().equals("Chờ lấy sách") || result.getId_user()==id && result.getTrangthai().equals("Đang mượn sách")){
+                 return false;
+             }
+         }
+         return true;
+    }
 }

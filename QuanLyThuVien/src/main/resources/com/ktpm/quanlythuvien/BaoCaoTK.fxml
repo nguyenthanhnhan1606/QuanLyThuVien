@@ -25,6 +25,11 @@
                   <Button mnemonicParsing="false" onAction="#setYear" prefHeight="26.0" prefWidth="102.0" text="Tìm" />
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="58.0" prefWidth="124.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#thoat" prefHeight="26.0" prefWidth="102.0" text="Thoát" />
+               </children>
+            </HBox>
          </children>
       </HBox>
       <BarChart fx:id="barBC" prefHeight="361.0" prefWidth="882.0" style="-fx-background-color: #F1F1F2;" title="Báo cáo mượn trả từng quý">

@@ -161,7 +161,11 @@ public class QuanLySachController implements Initializable {
 
         Date namXB1 = Date.valueOf(this.namXB.getValue());
         Date ngayNhap1 = Date.valueOf(this.ngayNhap.getValue());
-        Sach s = new Sach(Integer.parseInt(this.maSach.getText()), this.tenSach.getText(), this.tacGia.getText(), namXB1, this.moTa.getText(), this.viTri.getText(), ngayNhap1, this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(), "Chưa đặt","");
+        int d = namXB1.toLocalDate().getMonth().length(true);
+        if (namXB1.toLocalDate().getMonthValue()>12  ){
+            MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại sách thành công!!!", Alert.AlertType.INFORMATION).show();
+        }
+        Sach s = new Sach(Integer.parseInt(this.maSach.getText()), this.tenSach.getText(), this.tacGia.getText(), namXB1, this.moTa.getText(), this.viTri.getText(), ngayNhap1, this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(), "Chưa đặt", "");
         SachService sach = new SachService();
         try {
             if (sach.update(s)) {
@@ -201,7 +205,7 @@ public class QuanLySachController implements Initializable {
     public void addSachs(ActionEvent evt) throws SQLException, IOException, NoSuchAlgorithmException {
         Date namXB1 = Date.valueOf(this.namXB.getValue());
         Date ngayNhap1 = Date.valueOf(this.ngayNhap.getValue());
-        if (this.tacGia.getText().isEmpty() || this.moTa.getText().isEmpty() || this.tenSach.getText().isEmpty() || this.viTri.getText().isEmpty()) {
+        if (this.tacGia.getText().isEmpty() || this.moTa.getText().isEmpty() || this.tenSach.getText().isEmpty() || this.viTri.getText().isEmpty() || this.namXB.getValue() == null) {
             MessageBox.getBox("Lỗi", "Không được để trống ô nào!!", Alert.AlertType.ERROR).show();
         } else {
             Sach sa = new Sach(this.tenSach.getText(), this.tacGia.getText(), namXB1, this.moTa.getText(), this.viTri.getText(), ngayNhap1, this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(), "Chưa đặt");
@@ -229,12 +233,24 @@ public class QuanLySachController implements Initializable {
     }
 
     public void thoatQLS(ActionEvent evt) throws SQLException, IOException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
         Parent manageView = loader.load();
         Scene scene = new Scene(manageView);
         AdminController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+     public void quanLyDanhMuc(ActionEvent evt) throws SQLException, IOException {
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DanhMuc.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        QuanLyDanhMucController controller = loader.getController();
         controller.setUser(ur);
         stage.setScene(scene);
         stage.show();

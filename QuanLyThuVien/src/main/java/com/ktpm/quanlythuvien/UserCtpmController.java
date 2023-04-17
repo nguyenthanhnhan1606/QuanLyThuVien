@@ -123,7 +123,6 @@ public class UserCtpmController implements Initializable {
     }
 
     private void loadTableData() {
-
         this.tbSach.setItems(FXCollections.observableList(data.sa));
     }
 

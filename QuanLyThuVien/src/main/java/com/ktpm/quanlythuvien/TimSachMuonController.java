@@ -169,7 +169,7 @@ public class TimSachMuonController implements Initializable {
                         this.viTri.getText(),
                         Date.valueOf(this.ngayNhap.getValue()),
                         this.cbTheLoaiSach.getSelectionModel().getSelectedItem().getMaTLS(),
-                        "Chưa đặt",tbSach.getSelectionModel().getSelectedItem().getTenTl());
+                        "Chưa đặt", tbSach.getSelectionModel().getSelectedItem().getTenTl());
                 if (d.kts1(sac)) {
                     if (data.sa1.size() < 5) {
                         if (data.sa1.add(sac)) {
@@ -196,16 +196,15 @@ public class TimSachMuonController implements Initializable {
 
     }
 
-    public void thoat(ActionEvent evt) throws IOException {
+    public void thoat(ActionEvent evt) throws IOException, SQLException {
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyMuonSach.fxml"));
         Parent manageView = loader.load();
         Scene scene = new Scene(manageView);
         QuanLyMuonSachController controller = loader.getController();
-        controller.setUser(us);
+        controller.setUser(ur);
         stage.setScene(scene);
         stage.show();
     }
 }
-
-

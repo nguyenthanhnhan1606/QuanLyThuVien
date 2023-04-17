@@ -174,7 +174,7 @@ public class QuanLyTraSachController implements Initializable {
     }
     
     public void thoat(ActionEvent evt) throws IOException, SQLException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
         Parent manageView = loader.load();

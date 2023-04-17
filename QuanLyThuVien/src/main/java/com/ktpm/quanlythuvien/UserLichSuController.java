@@ -106,7 +106,11 @@ public class UserLichSuController implements Initializable {
 
     public void chiTietLs(ActionEvent evt) throws IOException, SQLException {
         PhieuMuonSach pms = tbPms.getSelectionModel().getSelectedItem();
+        List<Sach> t = s.getSachOnPM(pms.getId());
         if (pms != null) {
+            if (pms.getSoluong() > t.size()) {
+                MessageBox.getBox("Thông báo", "Trong phiếu mượn của bạn đã có sách bị xóa!!!", Alert.AlertType.ERROR).show();
+            }
             data2.setIdpm(pms.getId());
             Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ChiTietLS.fxml"));

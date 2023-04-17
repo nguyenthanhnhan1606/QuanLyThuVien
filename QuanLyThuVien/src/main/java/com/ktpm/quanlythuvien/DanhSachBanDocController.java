@@ -9,8 +9,10 @@ import com.ktpm.pojo.DoiTuong;
 import com.ktpm.pojo.Sach;
 import com.ktpm.pojo.TheLoaiSach;
 import com.ktpm.pojo.User;
+import static com.ktpm.quanlythuvien.UserMuonSachController.user;
 import com.ktpm.services.BoPhanService;
 import com.ktpm.services.DoiTuongService;
+import com.ktpm.services.PasswordService;
 import com.ktpm.services.SachService;
 import com.ktpm.services.UserService;
 import com.ktpm.utils.MessageBox;
@@ -38,9 +40,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -82,11 +86,20 @@ public class DanhSachBanDocController implements Initializable {
     private ComboBox<DoiTuong> cbDoiTuong;
     @FXML
     private TextField search;
+    @FXML
+    private RadioButton rd1;
+    @FXML
+    private RadioButton rd2;
+    ToggleGroup group1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         try {
+            group1 = new ToggleGroup();
+            rd1.setUserData("Nam");
+            rd1.setToggleGroup(group1);
+            rd2.setUserData("Nữ");
+            rd2.setToggleGroup(group1);
             loadBP();
             loadDT();
             loadTableColumns();
@@ -94,7 +107,7 @@ public class DanhSachBanDocController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(DanhSachBanDocController.class.getName()).log(Level.SEVERE, null, ex);
         }
-         this.search.textProperty().addListener(e -> {
+        this.search.textProperty().addListener(e -> {
             try {
                 this.loadTableData(this.search.getText());
             } catch (SQLException ex) {
@@ -175,7 +188,8 @@ public class DanhSachBanDocController implements Initializable {
         LocalDate date1 = Instant.ofEpochMilli(us.getHanthe().getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
         this.maDocGia.setText(String.valueOf(us.getId()));
         this.ten.setText(us.getTen());
-        this.gioiTinh.setText(us.getGioitinh());
+        this.rd1.setSelected(us.getGioitinh().equals("Nam"));
+        this.rd2.setSelected(us.getGioitinh().equals("Nữ"));
         this.ngaysinh.setValue(date);
         this.cbDoiTuong.getSelectionModel().select(us.getUser_doituong() - 1);
         this.cbBoPhan.getSelectionModel().select(us.getUser_bophan() - 1);
@@ -186,50 +200,66 @@ public class DanhSachBanDocController implements Initializable {
     }
 
     public void update(ActionEvent evt) throws SQLException, NoSuchAlgorithmException {
-
+        PasswordService p1 = new PasswordService("test");
+        PasswordService p2 = new PasswordService(1);
         Date date1 = Date.valueOf(this.ngaysinh.getValue());
         Date date2 = Date.valueOf(this.hanthe.getValue());
-        User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.gioiTinh.getText(), date2, date1, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoiTuong.getSelectionModel().getSelectedItem().getMaDT(), 1,"","");
-        if (user.checkUpdate(u)) {
-            MessageBox.getBox("Thông báo", "Không được để trống ô nào!!!", Alert.AlertType.ERROR).show();
-        } else {
-            try {
-                if (user.update(u)) {
-                    loadTableData(null);
-                    MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại sách thành công!!!", Alert.AlertType.INFORMATION).show();
-
+        if (!this.ten.getText().isEmpty() || !this.email.getText().isEmpty()) {
+            if (p1.checkEmail(this.email.getText())) {
+                if (p2.checkSdt(this.sdt.getText()) || this.sdt.getText().isEmpty()) {
+                    User u = new User(Integer.parseInt(this.maDocGia.getText()), "", "", this.ten.getText(), this.group1.getSelectedToggle().getUserData().toString(), date2, date1, this.email.getText(), this.diachi.getText(), this.sdt.getText(), this.cbBoPhan.getSelectionModel().getSelectedItem().getMaBP(), this.cbDoiTuong.getSelectionModel().getSelectedItem().getMaDT(), 1, "", "");
+                    if (user.checkUpdate(u)) {
+                        MessageBox.getBox("Thông báo", "Không được để trống ô nào!!!", Alert.AlertType.ERROR).show();
+                    } else {
+                        try {
+                            if (user.update(u)) {
+                                loadTableData(null);
+                                MessageBox.getBox("Thông báo", "Bạn đã thêm cập nhật lại user thành công!!!", Alert.AlertType.INFORMATION).show();
+                            }
+                        } catch (SQLException ex) {
+                            MessageBox.getBox("Thông báo", "Cập nhật lại sách thất bại!!!", Alert.AlertType.ERROR).show();
+                            Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+                    MessageBox.getBox("Thông báo", "Số điện thoại không hợp lệ", Alert.AlertType.INFORMATION).show();
                 }
-            } catch (SQLException ex) {
-                MessageBox.getBox("Thông báo", "Cập nhật lại sách thất bại!!!", Alert.AlertType.ERROR).show();
-                Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                MessageBox.getBox("Thông báo", "Email chưa đúng", Alert.AlertType.INFORMATION).show();
             }
+
         }
 
     }
 
     public void delete(ActionEvent evt) throws SQLException {
         User u = tbUser.getSelectionModel().getSelectedItem();
-        Alert a = MessageBox.getBox("Question",
-                "Are you sure to delete this question?",
-                Alert.AlertType.CONFIRMATION);
-        a.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
-                try {
-                    if (user.deleteUser(u.getId())) {
-                        MessageBox.getBox("Question", "Delete successful", Alert.AlertType.INFORMATION).show();
-                        this.loadTableData(null);
-                    } else {
-                        MessageBox.getBox("Question", "Delete failed", Alert.AlertType.WARNING).show();
+        UserService user = new UserService();
+        if (user.checkDel(u.getId())) {
+            Alert a = MessageBox.getBox("Question",
+                    "Are you sure to delete this question?",
+                    Alert.AlertType.CONFIRMATION);
+            a.showAndWait().ifPresent(res -> {
+                if (res == ButtonType.OK) {
+                    try {
+                        if (user.deleteUser(u.getId())) {
+                            MessageBox.getBox("Question", "Delete successful", Alert.AlertType.INFORMATION).show();
+                            this.loadTableData(null);
+                        } else {
+                            MessageBox.getBox("Question", "Delete failed", Alert.AlertType.WARNING).show();
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(QuanLySachController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        });
+            });
+        } else {
+            MessageBox.getBox("Thông báo", "Không thể xóa user này do đang mượn sách!!", Alert.AlertType.INFORMATION).show();
+        }
     }
 
     public void thoatQLDG(ActionEvent evt) throws SQLException, IOException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
         Parent manageView = loader.load();
@@ -240,9 +270,31 @@ public class DanhSachBanDocController implements Initializable {
         stage.show();
 
     }
-
+    public void quanLyBoPhan(ActionEvent evt) throws SQLException, IOException {
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BoPhan.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        QuanLyBoPhanController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void quanLyDoiTuong(ActionEvent evt) throws SQLException, IOException {
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("DoiTuong.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        QuanLyDoiTuongController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     public void DangKy(ActionEvent evt) throws IOException {
-
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DangKy.fxml"));
         Parent manageView = loader.load();

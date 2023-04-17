@@ -39,13 +39,13 @@
             <HBox alignment="CENTER" prefHeight="118.0" prefWidth="301.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="67.0" text="Ngày mượn" />
-                  <DatePicker fx:id="ngaymuon" />
+                  <DatePicker fx:id="ngaymuon" disable="true" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="118.0" prefWidth="301.0">
                <children>
                   <Label prefHeight="18.0" prefWidth="67.0" text="Ngày trả" />
-                  <DatePicker fx:id="hantra" />
+                  <DatePicker fx:id="hantra" disable="true" />
                </children>
             </HBox>
          </children>

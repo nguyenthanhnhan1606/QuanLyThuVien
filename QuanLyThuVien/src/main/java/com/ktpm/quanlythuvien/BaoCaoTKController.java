@@ -5,7 +5,10 @@
 package com.ktpm.quanlythuvien;
 
 import com.ktpm.pojo.PhieuMuonSach;
+import com.ktpm.pojo.User;
+import static com.ktpm.quanlythuvien.UserMuonSachController.user;
 import com.ktpm.services.PhieuMuonService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -17,10 +20,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 
 /**
  *
@@ -29,13 +37,16 @@ import javafx.scene.control.DatePicker;
 public class BaoCaoTKController implements Initializable {
 
     private static PhieuMuonService pm = new PhieuMuonService();
-    XYChart.Series series = new XYChart.Series();
-    XYChart.Series series2 = new XYChart.Series();
 
     @FXML
     private BarChart barBC;
     @FXML
     private DatePicker namTK;
+    private User us;
+
+    public void setUser(User u) {
+        this.us = u;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,15 +54,14 @@ public class BaoCaoTKController implements Initializable {
     }
 
     public void setYear(ActionEvent evt) {
-        Date.valueOf(this.namTK.getValue());
-        series.getData().clear();
-        series2.getData().clear();
-        barBC.getData().clear();
         loadChart(this.namTK.getValue().getYear());
-
     }
 
     public void loadChart(int n) {
+        barBC.getData().clear();
+        XYChart.Series series = new XYChart.Series();
+        XYChart.Series series2 = new XYChart.Series();
+
         series.setName("Mượn");
         series2.setName("Trả");
         series.getData().add(new XYChart.Data("1", sl1q1(n)));
@@ -68,7 +78,6 @@ public class BaoCaoTKController implements Initializable {
 
         barBC.getData().addAll(series, series2);
     }
-
 
     public int sl1q1(int n) {
         int sl1 = 0;
@@ -98,6 +107,7 @@ public class BaoCaoTKController implements Initializable {
         }
         return sl11;
     }
+
     public int sl2q2(int n) {
         int sl1 = 0;
         try {
@@ -184,8 +194,15 @@ public class BaoCaoTKController implements Initializable {
         }
         return sl11;
     }
-
-
-   
-
+    public void thoat(ActionEvent evt) throws IOException, SQLException {
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        AdminController controller = loader.getController();
+        controller.setUser(ur);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

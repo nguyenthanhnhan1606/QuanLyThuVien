@@ -74,6 +74,16 @@ public class AdminController {
         stage.show();
     }
 
+     public void baoCaoTK(ActionEvent evt) throws IOException {
+        Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BaoCaoTK.fxml"));
+        Parent manageView = loader.load();
+        Scene scene = new Scene(manageView);
+        BaoCaoTKController controller = loader.getController();
+        controller.setUser(us);
+        stage.setScene(scene);
+        stage.show();
+    }
     public void xacNhanSach(ActionEvent evt) throws IOException {
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuanLyXacNhanMuon.fxml"));

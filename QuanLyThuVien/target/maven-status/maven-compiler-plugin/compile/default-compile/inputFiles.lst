@@ -2,6 +2,7 @@ D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\qu
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\ChiTietPmService.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\JdbcUtils.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\pojo\data.java
+D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\QuanLyDanhMucController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\utils\MessageBox.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\DangKyController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\pojo\ChiTietPM.java
@@ -16,6 +17,7 @@ D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\po
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\pojo\TheLoaiSach.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\XacNhanSachController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\DoiTuongService.java
+D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\QuanLyDoiTuongController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\pojo\data2.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\ChiTietLSController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\BoPhanService.java
@@ -33,6 +35,7 @@ D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\qu
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\DanhSachBanDocController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\SachService.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\PrimaryController.java
+D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\QuanLyBoPhanController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\UserMuonSachController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\quanlythuvien\ChiTietXNSController.java
 D:\JavaFX_vu\QuanLyThuVien\QuanLyThuVien\QuanLyThuVien\src\main\java\com\ktpm\services\TheLoaiService.java

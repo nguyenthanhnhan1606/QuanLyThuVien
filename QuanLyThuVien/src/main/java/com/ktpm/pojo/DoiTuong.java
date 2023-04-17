@@ -9,22 +9,24 @@ package com.ktpm.pojo;
  * @author THANH NHAN
  */
 public class DoiTuong {
+
     private int maDT;
     private String loaiDT;
 
-    
-    public DoiTuong(int maDT,String loaiDT)
-    {
-        this.maDT=maDT;
-        this.loaiDT=loaiDT;
+    public DoiTuong(String loaiDT) {
+        this.loaiDT = loaiDT;
+    }
+
+    public DoiTuong(int maDT, String loaiDT) {
+        this.maDT = maDT;
+        this.loaiDT = loaiDT;
     }
 
     @Override
     public String toString() {
         return this.loaiDT; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
-    
-    
+
     /**
      * @return the maDT
      */

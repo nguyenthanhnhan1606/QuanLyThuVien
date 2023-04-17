@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="706.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="706.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ktpm.quanlythuvien.AdminController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="709.0" text="QUẢN LÝ THƯ VIỆN" textAlignment="CENTER">
          <font>
@@ -87,5 +87,6 @@
             <Insets top="20.0" />
          </VBox.margin>
       </HBox>
+      <Button mnemonicParsing="false" onAction="#baoCaoTK" prefHeight="26.0" prefWidth="362.0" text="Báo cáo thống kê" />
    </children>
 </VBox>

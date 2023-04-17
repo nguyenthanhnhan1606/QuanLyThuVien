@@ -4,12 +4,15 @@
  */
 package com.ktpm.quanlythuvien;
 
+import com.ktpm.pojo.PhieuMuonSach;
 import com.ktpm.pojo.Sach;
 import com.ktpm.pojo.TheLoaiSach;
 import com.ktpm.pojo.User;
 import com.ktpm.pojo.data2;
 import static com.ktpm.quanlythuvien.UserMuonSachController.s;
+import com.ktpm.services.PhieuMuonService;
 import com.ktpm.services.TheLoaiService;
+import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,6 +31,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -44,7 +48,7 @@ import javafx.stage.Stage;
 public class ChiTietLSController implements Initializable {
 
     private User us;
-
+    
     @FXML
     TableView<Sach> tbSach;
     @FXML
@@ -145,7 +149,6 @@ public class ChiTietLSController implements Initializable {
         this.cbTheLoaiSach.getSelectionModel().select(sa.getSach_tl() - 1);
         this.ngayNhap.setValue(date1);
     }
-
 
     public void thoat(ActionEvent evt) throws IOException, SQLException {
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();

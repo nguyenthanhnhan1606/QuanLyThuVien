@@ -12,7 +12,10 @@ public class TheLoaiSach {
     private int maTLS;
     private String tenTL;
 
-    
+     public TheLoaiSach( String tenTL)
+    {
+        this.tenTL=tenTL;
+    }
     public TheLoaiSach(int maTLS, String tenTL)
     {
         this.maTLS=maTLS;

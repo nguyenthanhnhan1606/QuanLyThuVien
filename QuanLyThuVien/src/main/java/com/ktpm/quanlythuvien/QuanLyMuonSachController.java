@@ -13,12 +13,14 @@ import static com.ktpm.quanlythuvien.UserMuonSachController.user;
 import com.ktpm.services.ChiTietPmService;
 import com.ktpm.services.PhieuMuonService;
 import com.ktpm.services.SachService;
+import com.ktpm.services.UserService;
 import com.ktpm.utils.MessageBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +50,7 @@ public class QuanLyMuonSachController implements Initializable {
     public static SachService s = new SachService();
     static PhieuMuonService pm = new PhieuMuonService();
     static ChiTietPmService ct = new ChiTietPmService();
+    static UserService user = new UserService();
 
     @FXML
     TableView<Sach> tbSach;
@@ -118,29 +121,35 @@ public class QuanLyMuonSachController implements Initializable {
     }
 
     public void datMuon(ActionEvent evt) throws SQLException {
-        if (!this.maDG.getText().isEmpty()) {
+       
+        if (!this.maDG.getText().isEmpty() && user.checcMaDG(Integer.parseInt(this.maDG.getText()))) {
             if (data.sa1.size() >= 1) {
-                Date date =Date.valueOf(this.ngaymuon.getValue());
+                Date date = Date.valueOf(this.ngaymuon.getValue());
                 LocalDate localDate = this.ngaymuon.getValue();
                 int nam = localDate.getYear();
                 int thang = localDate.getMonthValue();
                 int ngay = localDate.getDayOfMonth();
                 PhieuMuonSach pms = new PhieuMuonSach(date, Date.valueOf(this.hantra.getValue()), Integer.parseInt(this.maDG.getText().trim()), data.sa1.size(), "Đang mượn sách");
-                if (pm.addPhieuMuon(pms)) {
-                    PhieuMuonSach phieu = pm.getPMTT(nam, thang, ngay, Integer.parseInt(this.maDG.getText().trim()));
-                    for (int i = 0; i < data.sa1.size(); i++) {
-                        ChiTietPM ctpm = new ChiTietPM(data.sa1.get(i).getMaSach(), phieu.getId());
-                        if (ct.addChiTiet(ctpm)) {
-                            s.updateTT(data.sa1.get(i).getMaSach());
-                        } else {
-                            MessageBox.getBox("Thông báo", "Không thành công", Alert.AlertType.WARNING).show();
+                if (pm.kiemTraMuon(Integer.parseInt(this.maDG.getText()))) {
+                    if (pm.addPhieuMuon(pms)) {
+                        PhieuMuonSach phieu = pm.getPMTT(nam, thang, ngay, Integer.parseInt(this.maDG.getText().trim()));
+                        for (int i = 0; i < data.sa1.size(); i++) {
+                            ChiTietPM ctpm = new ChiTietPM(data.sa1.get(i).getMaSach(), phieu.getId());
+                            if (ct.addChiTiet(ctpm)) {
+                                s.updateTT(data.sa1.get(i).getMaSach());
+                            } else {
+                                MessageBox.getBox("Thông báo", "Không thành công", Alert.AlertType.WARNING).show();
+                            }
                         }
+                        data.sa1.clear();
+                        loadTableData();
+                        MessageBox.getBox("Thông báo", "Thành công!!", Alert.AlertType.INFORMATION).show();
+                    } else {
+                        MessageBox.getBox("Thông báo", "Không thành công", Alert.AlertType.WARNING).show();
                     }
-                    data.sa1.clear();
-                    loadTableData();
-                    MessageBox.getBox("Thông báo", "Thành công!!", Alert.AlertType.INFORMATION).show();
+
                 } else {
-                    MessageBox.getBox("Thông báo", "Không thành công", Alert.AlertType.WARNING).show();
+                    MessageBox.getBox("Thông báo", "Bạn chưa trả hết sách hoặc đang mượn sách!!", Alert.AlertType.INFORMATION).show();
                 }
 
             } else {
@@ -148,8 +157,7 @@ public class QuanLyMuonSachController implements Initializable {
 
             }
         } else {
-            MessageBox.getBox("Thông báo", "Không được để trống ô mã đọc giả", Alert.AlertType.WARNING).show();
-
+            MessageBox.getBox("Thông báo", "Không được để trống ô mã đọc giả hoặc mã đọc giả không tồn tại", Alert.AlertType.WARNING).show();
         }
 
     }
@@ -161,7 +169,7 @@ public class QuanLyMuonSachController implements Initializable {
     }
 
     public void timSach(ActionEvent evt) throws IOException, SQLException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TimSachMuon.fxml"));
         Parent manageView = loader.load();
@@ -173,7 +181,7 @@ public class QuanLyMuonSachController implements Initializable {
     }
 
     public void thoat(ActionEvent evt) throws IOException, SQLException {
-        User ur = user.getU(this.us.getUsername(), this.us.getPassword());
+        User ur = user.getAD(this.us.getUsername(), this.us.getPassword());
         Stage stage = (Stage) ((Node) evt.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Admin.fxml"));
         Parent manageView = loader.load();
